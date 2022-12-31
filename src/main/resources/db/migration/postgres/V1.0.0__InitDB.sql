@@ -12,7 +12,7 @@ create table users (
     uuid UUID primary key default uuid_generate_v4(),
     login varchar(50) not null,
     password varchar(72) not null,
-    role_id integer not null,
+    role_id integer default 1,
 
     constraint role_id_fk foreign key (role_id) references roles(id)
 );
