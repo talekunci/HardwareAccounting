@@ -20,12 +20,12 @@ create table users (
 create table hardware (
     uuid UUID primary key default uuid_generate_v4(),
     serial_number integer NOT NULL,
-    manufaturer varchar(72) NOT NULL,
+    manufacturer varchar(72) NOT NULL,
     name varchar(72) NOT NULL,
     description varchar(72),
     manufacture_date DATE NOT NULL DEFAULT CURRENT_DATE,
-    instalation_date DATE,
-    instalation_address varchar(72),
+    installation_date DATE,
+    installation_address varchar(72),
     owner_phone_number integer,
     owner_email varchar(320)
 );
