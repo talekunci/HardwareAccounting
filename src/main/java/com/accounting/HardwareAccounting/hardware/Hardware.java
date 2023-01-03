@@ -5,26 +5,34 @@ import javax.persistence.*;
 import java.util.*;
 
 @Entity
+@Table(name = "hardware")
 public class Hardware {
 
   @Id
-  private UUID id;
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  @Column(name = "uuid")
+  private UUID uuid;
+  @Column(name = "manufacturer", length = 72, nullable = false)
   private String manufacturer;
+  @Column(name = "name", length = 72, nullable = false)
   private String name;
+  @Column(name = "serial_number", nullable = false)
   private String serialNumber;
+  @Column(name = "description", length = 72)
   private String description;
+  @Column(name = "manufacture_date", nullable = false)
   private Date manufacturingDate;
+  @Column(name = "installation_date")
   private Date installationDate;
+  @Column(name = "installation_address", length = 72)
   private String installationAddress;
+  @Column(name = "owner_phone_number")
   private String phoneNumber;
+  @Column(name = "owner_email", length = 320)
   private String email;
 
-  public UUID getId() {
-    return id;
-  }
-
-  public void setId(UUID id) {
-    this.id = id;
+  public UUID getUuid() {
+    return uuid;
   }
 
   public String getManufacturer() {
@@ -108,7 +116,7 @@ public class Hardware {
       return false;
     }
     Hardware hardware = (Hardware) o;
-    return Objects.equals(id, hardware.id) && Objects.equals(manufacturer,
+    return Objects.equals(uuid, hardware.uuid) && Objects.equals(manufacturer,
         hardware.manufacturer) && Objects.equals(name, hardware.name)
         && Objects.equals(serialNumber, hardware.serialNumber) && Objects.equals(
         description, hardware.description) && Objects.equals(manufacturingDate,
@@ -120,14 +128,14 @@ public class Hardware {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, manufacturer, name, serialNumber, description, manufacturingDate,
+    return Objects.hash(uuid, manufacturer, name, serialNumber, description, manufacturingDate,
         installationDate, installationAddress, phoneNumber, email);
   }
 
   @Override
   public String toString() {
     return "Hardware{" +
-        "id=" + id +
+        "id=" + uuid +
         ", manufacturer='" + manufacturer + '\'' +
         ", name='" + name + '\'' +
         ", serialNumber='" + serialNumber + '\'' +

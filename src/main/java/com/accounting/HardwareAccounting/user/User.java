@@ -4,28 +4,31 @@ import java.util.*;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "users")
 public class User {
 
   @Id
-  private UUID id;
-  private String name;
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  @Column(name = "uuid")
+  private UUID uuid;
+  @Column(name = "login", length = 50, nullable = false)
+  private String login;
+  @Column(name = "password", length = 72, nullable = false)
   private String password;
+  @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  @JoinColumn(name = "role_id")
+  private Role role;
 
-
-  public UUID getId() {
-    return id;
+  public UUID getUuid() {
+    return uuid;
   }
 
-  public void setId(UUID id) {
-    this.id = id;
+  public String getLogin() {
+    return login;
   }
 
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
+  public void setLogin(String login) {
+    this.login = login;
   }
 
   public String getPassword() {
@@ -34,6 +37,14 @@ public class User {
 
   public void setPassword(String password) {
     this.password = password;
+  }
+
+  public Role getRole() {
+    return role;
+  }
+
+  public void setRole(Role role) {
+    this.role = role;
   }
 
   @Override
@@ -45,21 +56,23 @@ public class User {
       return false;
     }
     User user = (User) o;
-    return Objects.equals(id, user.id) && Objects.equals(name, user.name)
-        && Objects.equals(password, user.password);
+    return Objects.equals(uuid, user.uuid) && Objects.equals(login, user.login)
+        && Objects.equals(password, user.password) && Objects.equals(role,
+        user.role);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, password);
+    return Objects.hash(uuid, login, password, role);
   }
 
   @Override
   public String toString() {
     return "User{" +
-        "id=" + id +
-        ", name='" + name + '\'' +
+        "uuid=" + uuid +
+        ", login='" + login + '\'' +
         ", password='" + password + '\'' +
+        ", role=" + role +
         '}';
   }
 }
