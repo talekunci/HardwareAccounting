@@ -1,6 +1,5 @@
 spring:
-  profiles:
-#    active: prod
+#  profiles.active: production
   mvc:
     pathmatch:
       matching-strategy: ant-path-matcher
@@ -9,8 +8,8 @@ spring:
 
 spring:
   datasource:
-    url: jdbc:h2:mem:testdb
-    username: h2DB
+    url: jdbc:h2:mem:hardwareAccDevDB
+    username: h2DevDB
     password: secretPass159753
     driverClassName: org.h2.Driver
   jpa:
@@ -23,11 +22,14 @@ spring:
 ---
 
 spring:
-  profiles: prod
+  activate:
+    on-profiles: production
+  devtools:
+    add-properties: false
   datasource:
     url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
     password: password
     driver-class-name: org.postgresql.Driver
   jpa:
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    database-platform: org.hibernate.dialect.PostgreSQL82Dialect
