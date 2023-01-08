@@ -1,13 +1,14 @@
 package com.accounting.HardwareAccounting.user;
 
 import java.util.Objects;
-import javax.persistence.*;
+import jakarta.persistence.*;
+import lombok.ToString;
 
+@ToString
 @Entity
 @Table(name = "roles")
 public class Role {
   @Id
-  @Column(name = "id")
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
   @Column(name = "name", nullable = false)
@@ -40,13 +41,5 @@ public class Role {
   @Override
   public int hashCode() {
     return Objects.hash(id, name);
-  }
-
-  @Override
-  public String toString() {
-    return "Role{" +
-        "id=" + id +
-        ", name='" + name + '\'' +
-        '}';
   }
 }

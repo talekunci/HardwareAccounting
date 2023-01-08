@@ -31,6 +31,7 @@ create table hardware (
 );
 
 create table maintenance_dates(
+    uuid UUID primary key default uuid_generate_v4(),
     hardware_uuid UUID NOT NULL,
     maintenance_date date not null,
 

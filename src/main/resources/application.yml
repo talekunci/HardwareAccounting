@@ -1,5 +1,9 @@
+server:
+  port: 8080
+
 spring:
-#  profiles.active: production
+#  profiles.active: dev
+  profiles.active: production
   mvc:
     pathmatch:
       matching-strategy: ant-path-matcher
@@ -7,6 +11,7 @@ spring:
 ---
 
 spring:
+  profiles: dev
   datasource:
     url: jdbc:h2:mem:hardwareAccDevDB
     username: h2DevDB
@@ -17,13 +22,14 @@ spring:
   h2:
     console:
       enabled: true
-      path: /h2-console
+      path: /h2
+  flyway:
+    locations: classpath:db/migration/h2
 
 ---
 
 spring:
-  activate:
-    on-profiles: production
+  profiles: production
   devtools:
     add-properties: false
   datasource:
@@ -33,3 +39,8 @@ spring:
     driver-class-name: org.postgresql.Driver
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQL82Dialect
+  h2:
+    console:
+      enabled: false
+  flyway:
+    locations: classpath:db/migration/postgres
