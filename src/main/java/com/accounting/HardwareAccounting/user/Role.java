@@ -1,45 +1,52 @@
 package com.accounting.HardwareAccounting.user;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 @ToString
+@Getter
+@Setter
 @Entity
 @Table(name = "roles")
 public class Role {
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private Long id;
-  @Column(name = "name", nullable = false)
-  private String name;
 
-  public Long getId() {
-    return id;
-  }
+    @Setter(AccessLevel.NONE)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    @Column(name = "name", nullable = false, length = 15)
+    private String name;
 
-  public String getName() {
-    return name;
-  }
+    @ToString.Exclude
+    @OneToMany(mappedBy = "roles")
+    private Set<User> users;
 
-  public void setName(String name) {
+  public Role(String name, Set<User> users) {
     this.name = name;
+    this.users = users;
   }
 
   @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Role role = (Role) o;
+        return Objects.equals(id, role.id) && Objects.equals(name, role.name);
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    Role role = (Role) o;
-    return Objects.equals(id, role.id) && Objects.equals(name, role.name);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, name);
-  }
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
+    }
 }

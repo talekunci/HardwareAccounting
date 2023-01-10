@@ -41,8 +41,11 @@ public class Hardware {
     @Column(name = "owner_email", length = 320)
     private String ownerEmail;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinTable(name = "maintenance_dates", joinColumns = {@JoinColumn(name = "hardware_uuid")})
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "maintenance_dates",
+            joinColumns = {@JoinColumn(name = "hardware_uuid")}
+    )
     private Set<MaintenanceDates> maintenanceDates;
 
 

@@ -2,7 +2,7 @@ CREATE EXTENSION "uuid-ossp";
 
 create table roles(
     id serial PRIMARY key,
-    name varchar(10) not null
+    name varchar(15) not null
 );
 
 INSERT INTO roles(name) VALUES ('User');
@@ -14,6 +14,14 @@ create table users (
     password varchar(72) not null,
     role_id integer default 1,
 
+    constraint role_id_fk foreign key (role_id) references roles(id)
+);
+
+create table user_roles(
+    user_uuid UUID not null,
+    role_id integer not null,
+
+    constraint user_uuid_fk foreign key (user_uuid) references users(uuid),
     constraint role_id_fk foreign key (role_id) references roles(id)
 );
 
