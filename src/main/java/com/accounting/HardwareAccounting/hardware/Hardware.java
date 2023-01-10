@@ -27,7 +27,7 @@ public class Hardware {
     @Column(name = "name", length = 72, nullable = false)
     private String name;
     @Column(name = "serial_number", nullable = false)
-    private String serialNumber;
+    private Long serialNumber;
     @Column(name = "description", length = 72)
     private String description;
     @Column(name = "manufacture_date", nullable = false)
@@ -37,7 +37,7 @@ public class Hardware {
     @Column(name = "installation_address", length = 72)
     private String installationAddress;
     @Column(name = "owner_phone_number")
-    private String ownerPhoneNumber;
+    private Integer ownerPhoneNumber;
     @Column(name = "owner_email", length = 320)
     private String ownerEmail;
 
@@ -52,12 +52,12 @@ public class Hardware {
     public Hardware(
             String manufacturer,
             String name,
-            String serialNumber,
+            Long serialNumber,
             String description,
             Date manufacturingDate,
             Date installationDate,
             String installationAddress,
-            String ownerPhoneNumber,
+            Integer ownerPhoneNumber,
             String ownerEmail,
             Set<MaintenanceDates> maintenanceDates
     ) {

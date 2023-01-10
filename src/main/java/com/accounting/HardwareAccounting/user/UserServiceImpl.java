@@ -13,17 +13,21 @@ import java.util.stream.Collectors;
 
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    private UserRepository repository;
+    private final UserRepository repository;
+
+    private final RoleRepository roleRepo;
+
+    private final PasswordEncoder encoder;
+
+    private final ModelMapper mapper;
 
     @Autowired
-    private RoleRepository roleRepo;
-
-    @Autowired
-    private PasswordEncoder encoder;
-
-    @Autowired
-    private ModelMapper mapper;
+    public UserServiceImpl(UserRepository repository, RoleRepository roleRepo, PasswordEncoder encoder, ModelMapper mapper) {
+        this.repository = repository;
+        this.roleRepo = roleRepo;
+        this.encoder = encoder;
+        this.mapper = mapper;
+    }
 
     @Override
     public List<UserDto> getAll() {
