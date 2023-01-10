@@ -26,8 +26,8 @@ public class Hardware {
     private String manufacturer;
     @Column(name = "name", length = 72, nullable = false)
     private String name;
-    @Column(name = "serial_number", nullable = false)
-    private Long serialNumber;
+    @Column(name = "serial_number", nullable = false, length = 50)
+    private String serialNumber;
     @Column(name = "description", length = 72)
     private String description;
     @Column(name = "manufacture_date", nullable = false)
@@ -52,7 +52,7 @@ public class Hardware {
     public Hardware(
             String manufacturer,
             String name,
-            Long serialNumber,
+            String serialNumber,
             String description,
             Date manufacturingDate,
             Date installationDate,

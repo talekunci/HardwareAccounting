@@ -34,8 +34,8 @@ public class HardwareDto {
     private String name;
 
     @NotEmpty
-    @Max(Long.MAX_VALUE)
-    private Long serialNumber;
+    @Max(50)
+    private String serialNumber;
 
     @NotEmpty
     @Size(max = 72)

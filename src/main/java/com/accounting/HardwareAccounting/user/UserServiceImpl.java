@@ -70,7 +70,7 @@ public class UserServiceImpl implements UserService {
 
                             return user;
                         }
-                ).ifPresent(user -> repository.save(user));
+                ).ifPresent(repository::save);
     }
 
     @Override

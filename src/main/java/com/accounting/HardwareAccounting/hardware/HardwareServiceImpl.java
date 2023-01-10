@@ -80,7 +80,7 @@ public class HardwareServiceImpl implements HardwareService {
 
                     return h;
                 })
-                .ifPresent(hardware -> repository.save(hardware));
+                .ifPresent(repository::save);
     }
 
     @Override
