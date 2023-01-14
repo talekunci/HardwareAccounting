@@ -22,7 +22,7 @@ public class ProdWebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests().antMatchers("/login", "/register").permitAll()
+                .authorizeRequests().antMatchers("/login", "/registration").permitAll()
                 .and()
                 .cors().disable()
                 .authorizeRequests().anyRequest().authenticated();
