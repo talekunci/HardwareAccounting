@@ -9,7 +9,7 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-@Profile("prod")
+@Profile("production")
 @Configuration
 @EnableWebSecurity
 public class ProdWebSecurityConfig {
@@ -22,7 +22,9 @@ public class ProdWebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests().antMatchers("/login", "/registration").permitAll()
+                .formLogin().loginPage("/login").permitAll()
+                .and()
+                .authorizeRequests().antMatchers("/registration").permitAll()
                 .and()
                 .cors().disable()
                 .authorizeRequests().anyRequest().authenticated();

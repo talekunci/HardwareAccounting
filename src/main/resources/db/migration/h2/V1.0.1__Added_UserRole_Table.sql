@@ -1,10 +1,10 @@
 create table user_roles(
-    user_uuid UUID not null,
-    role_id integer not null,
+    user_uuid UUID NOT NULL,
+    role_id INTEGER NOT NULL,
 
-    foreign key (user_uuid) references users(uuid),
-    foreign key (role_id) references roles(id)
+    FOREIGN KEY (user_uuid) REFERENCES users(uuid),
+    FOREIGN KEY (role_id) REFERENCES roles(id)
 );
 
-alter table users
-        drop column role_id;
+ALTER TABLE users
+        DROP COLUMN role_id;
