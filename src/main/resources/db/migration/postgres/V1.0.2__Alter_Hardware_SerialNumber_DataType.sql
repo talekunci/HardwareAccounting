@@ -1,2 +1,2 @@
-alter table hardware
-        alter column serial_number type varchar(50);
+ALTER TABLE hardware
+        ALTER COLUMN serial_number TYPE VARCHAR(50);
