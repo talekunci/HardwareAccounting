@@ -33,7 +33,7 @@ spring:
   devtools:
     add-properties: false
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
+    url: jdbc:postgresql://localhost:5432/hardwarePostgresDB
     username: hardwarePostgresDB
     password: password
     driver-class-name: org.postgresql.Driver
