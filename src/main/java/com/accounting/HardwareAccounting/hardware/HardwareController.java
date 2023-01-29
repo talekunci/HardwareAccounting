@@ -25,7 +25,8 @@ public class HardwareController {
 
   @GetMapping("/hardware/new")
   public String showCreatingForm(Model model) {
-    return "redirect:/hardware";
+    model.addAttribute("hardware", new Hardware());
+    return "hardware_form";
   }
 
   @PostMapping("/hardware/save")
