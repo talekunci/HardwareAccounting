@@ -1,7 +1,5 @@
 package com.accounting.HardwareAccounting.hardware;
 
-import com.accounting.HardwareAccounting.user.UserDto;
-import com.accounting.HardwareAccounting.user.UserServiceImpl;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -18,7 +16,7 @@ public class HardwareController {
   @Autowired
   private HardwareServiceImpl service;
 
-  @GetMapping("/users")
+  @GetMapping("/hardware")
   public String showHardware(Model model) {
     List<HardwareDto> hardwareList = service.getAll();
     model.addAttribute("hardwareList", hardwareList);
@@ -36,7 +34,7 @@ public class HardwareController {
     return "redirect:/hardware";
   }
 
-  @GetMapping
+  @GetMapping("/hardware/edit/{uuid}")
   public String showEditingForm(@PathVariable("uuid") UUID uuid, Model model) {
     try {
       Optional<HardwareDto> hardware = service.getByUuid(uuid);
