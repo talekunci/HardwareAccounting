@@ -24,7 +24,7 @@ public class MaintenanceDates {
     @Column(name = "hardware_uuid", nullable = false)
     private UUID hardware_uuid;
 
-    @Column(name = "date", nullable = false)
+    @Column(name = "maintenance_date", nullable = false)
     private Date date;
 
     @Column(name = "description", nullable = false, length = 450)
