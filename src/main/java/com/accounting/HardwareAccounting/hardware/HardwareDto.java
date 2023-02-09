@@ -58,7 +58,6 @@ public class HardwareDto {
     @Size(max = 320)
     private String ownerEmail;
 
-    private Set<MaintenanceDates> maintenanceDates = new HashSet<>();
-
+    private Set<MaintenanceDate> maintenanceDates = new HashSet<>();
 
 }

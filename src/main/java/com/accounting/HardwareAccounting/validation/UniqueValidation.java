@@ -5,7 +5,8 @@ import jakarta.persistence.Query;
 import jakarta.persistence.Table;
 import org.springframework.util.StringUtils;
 
-import javax.persistence.PersistenceContext;
+import jakarta.persistence.PersistenceContext;
+
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import javax.validation.UnexpectedTypeException;

@@ -1,8 +1,8 @@
 package com.accounting.HardwareAccounting.user;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -19,6 +19,7 @@ public interface UserService {
     @Transactional
     void create(UserDto dto);
 
+    @Transactional
     void update(UUID uuid, UserDto dto);
 
     void delete(UUID uuid);

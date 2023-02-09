@@ -14,11 +14,12 @@ public interface HardwareService {
 
     Optional<HardwareDto> getByUuid(UUID uuid);
 
-    Optional<HardwareDto> getBySerialNumber(Long serialNumber);
+    Optional<HardwareDto> getBySerialNumber(String serialNumber);
 
     @Transactional
     void create(HardwareDto dto);
 
+    @Transactional
     void update(UUID uuid, HardwareDto dto);
 
     void delete(UUID uuid);

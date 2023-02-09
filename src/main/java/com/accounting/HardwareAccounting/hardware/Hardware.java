@@ -9,18 +9,15 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
-@Getter
-@Setter
-@ToString
+@Data
 @NoArgsConstructor
 @Entity
 @Table(name = "hardware")
 public class Hardware {
 
-    @Setter(AccessLevel.NONE)
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "uuid")
+    @Transient
     private UUID uuid;
     @Column(name = "manufacturer", length = 72, nullable = false)
     private String manufacturer;
@@ -46,32 +43,7 @@ public class Hardware {
             name = "maintenance_dates",
             joinColumns = {@JoinColumn(name = "hardware_uuid")}
     )
-    private Set<MaintenanceDates> maintenanceDates;
-
-
-    public Hardware(
-            String manufacturer,
-            String name,
-            String serialNumber,
-            String description,
-            Date manufacturingDate,
-            Date installationDate,
-            String installationAddress,
-            Integer ownerPhoneNumber,
-            String ownerEmail,
-            Set<MaintenanceDates> maintenanceDates
-    ) {
-        this.manufacturer = manufacturer;
-        this.name = name;
-        this.serialNumber = serialNumber;
-        this.description = description;
-        this.manufacturingDate = manufacturingDate;
-        this.installationDate = installationDate;
-        this.installationAddress = installationAddress;
-        this.ownerPhoneNumber = ownerPhoneNumber;
-        this.ownerEmail = ownerEmail;
-        this.maintenanceDates = maintenanceDates;
-    }
+    private Set<MaintenanceDate> maintenanceDates;
 
     @Override
     public boolean equals(Object o) {

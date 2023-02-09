@@ -1,7 +1,6 @@
 package com.accounting.HardwareAccounting.user;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.StringUtils;
 
@@ -21,7 +20,6 @@ public class UserServiceImpl implements UserService {
 
     private final ModelMapper mapper;
 
-    @Autowired
     public UserServiceImpl(UserRepository repository, RoleRepository roleRepo, PasswordEncoder encoder, ModelMapper mapper) {
         this.repository = repository;
         this.roleRepo = roleRepo;
