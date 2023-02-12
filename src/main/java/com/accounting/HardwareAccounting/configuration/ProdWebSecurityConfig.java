@@ -24,10 +24,10 @@ public class ProdWebSecurityConfig {
         http
                 .formLogin().loginPage("/login").permitAll()
                 .and()
-                .authorizeRequests().antMatchers("/registration").permitAll()
+                .authorizeHttpRequests().requestMatchers("/registration").permitAll()
                 .and()
                 .cors().disable()
-                .authorizeRequests().anyRequest().authenticated();
+                .authorizeHttpRequests().anyRequest().authenticated();
 
         return http.build();
     }
