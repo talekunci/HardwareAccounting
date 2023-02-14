@@ -1,10 +1,12 @@
 package com.accounting.HardwareAccounting.user;
 
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 import java.util.Objects;
 import java.util.Set;
-
-import jakarta.persistence.*;
-import lombok.*;
 
 @Data
 @NoArgsConstructor
@@ -14,12 +16,13 @@ public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Transient
     private Long id;
+
     @Column(name = "name", nullable = false, length = 15)
     private String name;
+
     @ToString.Exclude
-    @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "roles")
     private Set<User> users;
 
   @Override

@@ -1,10 +1,11 @@
 package com.accounting.HardwareAccounting.hardware;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.sql.Date;
-import java.util.Objects;
 import java.util.UUID;
 
 @Data
@@ -15,11 +16,12 @@ public class MaintenanceDate {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Transient
     private UUID uuid;
 
-    @Column(name = "hardware_uuid", nullable = false)
-    private UUID hardware_uuid;
+    @ToString.Exclude
+    @ManyToOne
+    @JoinColumn(name = "hardware_uuid", nullable = false)
+    private Hardware hardware;
 
     @Column(name = "maintenance_date", nullable = false)
     private Date date;
@@ -30,12 +32,20 @@ public class MaintenanceDate {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof MaintenanceDate that)) return false;
-        return Objects.equals(uuid, that.uuid) && hardware_uuid.equals(that.hardware_uuid) && date.equals(that.date) && description.equals(that.description);
+        if (o == null || getClass() != o.getClass()) return false;
+
+        MaintenanceDate that = (MaintenanceDate) o;
+
+        if (!getHardware().equals(that.getHardware())) return false;
+        if (!getDate().equals(that.getDate())) return false;
+        return getDescription().equals(that.getDescription());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(uuid, hardware_uuid, date, description);
+        int result = getHardware().hashCode();
+        result = 31 * result + getDate().hashCode();
+        result = 31 * result + getDescription().hashCode();
+        return result;
     }
 }

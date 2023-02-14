@@ -39,7 +39,7 @@ spring:
     password: ${HARDWARE_ACCOUNTING_DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
   jpa:
-    database-platform: org.hibernate.dialect.PostgreSQL82Dialect
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
   h2:
     console:
       enabled: false
