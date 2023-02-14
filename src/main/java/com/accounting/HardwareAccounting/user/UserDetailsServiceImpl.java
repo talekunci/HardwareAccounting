@@ -12,11 +12,11 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class UserDetailServiceImpl implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final UserServiceImpl userService;
 
-    public UserDetailServiceImpl(UserServiceImpl userService) {
+    public UserDetailsServiceImpl(UserServiceImpl userService) {
         this.userService = userService;
     }
 
