@@ -1,10 +1,11 @@
 package com.accounting.HardwareAccounting.hardware;
 
-import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.UUID;
+
 @Repository
-public interface MaintenanceDatesRepository extends JpaRepository<MaintenanceDate, UUID> {
+public interface MaintenanceDateRepository extends JpaRepository<MaintenanceDate, UUID> {
 
 }

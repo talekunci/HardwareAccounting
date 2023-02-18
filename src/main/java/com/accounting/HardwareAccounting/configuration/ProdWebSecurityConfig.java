@@ -27,6 +27,8 @@ public class ProdWebSecurityConfig {
                 .and()
                 .authorizeHttpRequests().requestMatchers("/registration").permitAll()
                 .and()
+                .authorizeHttpRequests().requestMatchers("/users/*").denyAll()
+                .and()
                 .logout().permitAll()
                 .and()
                 .cors()
