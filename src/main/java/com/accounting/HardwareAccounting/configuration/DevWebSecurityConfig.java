@@ -23,7 +23,7 @@ public class DevWebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests()
-                .requestMatchers("/h2/**").permitAll()
+                .requestMatchers("/h2/**", "/**").permitAll()
                 .and()
                 .csrf().disable()
                 .headers().frameOptions().disable();
