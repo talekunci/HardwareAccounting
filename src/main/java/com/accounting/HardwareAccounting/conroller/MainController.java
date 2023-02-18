@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/")
-public class HomepageController {
+public class MainController {
 
     private final UserService service;
 
-    public HomepageController(UserService service) {
+    public MainController(UserService service) {
         this.service = service;
     }
 
