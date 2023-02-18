@@ -3,7 +3,7 @@ package com.accounting.HardwareAccounting.hardware;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import javax.transaction.Transactional;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,8 +20,8 @@ public interface MaintenanceDatesService {
 
   void delete(UUID uuid);
 
-  MaintenanceDatesDto mapToDto(MaintenanceDates dates);
+  MaintenanceDatesDto mapToDto(MaintenanceDate dates);
 
-  MaintenanceDates mapFromDto(MaintenanceDatesDto dto);
+  MaintenanceDate mapFromDto(MaintenanceDatesDto dto);
 
 }

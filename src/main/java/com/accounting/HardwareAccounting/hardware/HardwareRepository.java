@@ -8,6 +8,6 @@ import java.util.*;
 @Repository
 public interface HardwareRepository extends JpaRepository<Hardware, UUID> {
 
-    Optional<Hardware> findBySerialNumber(Long serialNumber);
+    Optional<Hardware> findBySerialNumber(String serialNumber);
 
 }

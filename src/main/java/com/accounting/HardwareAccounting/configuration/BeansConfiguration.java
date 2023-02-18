@@ -2,9 +2,9 @@ package com.accounting.HardwareAccounting.configuration;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Service;
+import org.springframework.context.annotation.Configuration;
 
-@Service
+@Configuration
 public class BeansConfiguration {
 
     @Bean

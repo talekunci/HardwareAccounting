@@ -1,35 +1,29 @@
 package com.accounting.HardwareAccounting.user;
 
-import java.util.HashSet;
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 import java.util.Objects;
 import java.util.Set;
 
-import jakarta.persistence.*;
-import lombok.*;
-
-@ToString
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @Entity
 @Table(name = "roles")
 public class Role {
 
-    @Setter(AccessLevel.NONE)
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     @Column(name = "name", nullable = false, length = 15)
     private String name;
 
     @ToString.Exclude
-    @OneToMany(mappedBy = "roles")
+    @ManyToMany(mappedBy = "roles")
     private Set<User> users;
-
-  public Role(String name, Set<User> users) {
-    this.name = name;
-    this.users = users;
-  }
 
   @Override
     public boolean equals(Object o) {

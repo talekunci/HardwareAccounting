@@ -1,88 +1,76 @@
 package com.accounting.HardwareAccounting.hardware;
 
 import jakarta.persistence.*;
-import lombok.*;
-import org.hibernate.Hibernate;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.sql.Date;
-import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
-@Getter
-@Setter
-@ToString
+@Data
 @NoArgsConstructor
 @Entity
 @Table(name = "hardware")
 public class Hardware {
 
-    @Setter(AccessLevel.NONE)
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "uuid")
     private UUID uuid;
+
     @Column(name = "manufacturer", length = 72, nullable = false)
     private String manufacturer;
+
     @Column(name = "name", length = 72, nullable = false)
     private String name;
+
     @Column(name = "serial_number", nullable = false, length = 50)
     private String serialNumber;
+
     @Column(name = "description", length = 72)
     private String description;
+
     @Column(name = "manufacture_date", nullable = false)
     private Date manufacturingDate;
+
     @Column(name = "installation_date")
     private Date installationDate;
+
     @Column(name = "installation_address", length = 72)
     private String installationAddress;
+
     @Column(name = "owner_phone_number")
     private Integer ownerPhoneNumber;
+
     @Column(name = "owner_email", length = 320)
     private String ownerEmail;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "maintenance_dates",
-            joinColumns = {@JoinColumn(name = "hardware_uuid")}
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            mappedBy = "hardware",
+            fetch = FetchType.EAGER
     )
-    private Set<MaintenanceDates> maintenanceDates;
-
-
-    public Hardware(
-            String manufacturer,
-            String name,
-            String serialNumber,
-            String description,
-            Date manufacturingDate,
-            Date installationDate,
-            String installationAddress,
-            Integer ownerPhoneNumber,
-            String ownerEmail,
-            Set<MaintenanceDates> maintenanceDates
-    ) {
-        this.manufacturer = manufacturer;
-        this.name = name;
-        this.serialNumber = serialNumber;
-        this.description = description;
-        this.manufacturingDate = manufacturingDate;
-        this.installationDate = installationDate;
-        this.installationAddress = installationAddress;
-        this.ownerPhoneNumber = ownerPhoneNumber;
-        this.ownerEmail = ownerEmail;
-        this.maintenanceDates = maintenanceDates;
-    }
+    private Set<MaintenanceDate> maintenanceDates;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
+
         Hardware hardware = (Hardware) o;
-        return uuid != null && Objects.equals(uuid, hardware.uuid);
+
+        if (!getManufacturer().equals(hardware.getManufacturer())) return false;
+        if (!getName().equals(hardware.getName())) return false;
+        if (!getSerialNumber().equals(hardware.getSerialNumber())) return false;
+        return getManufacturingDate().equals(hardware.getManufacturingDate());
     }
 
     @Override
     public int hashCode() {
-        return getClass().hashCode();
+        int result = getManufacturer().hashCode();
+        result = 31 * result + getName().hashCode();
+        result = 31 * result + getSerialNumber().hashCode();
+        result = 31 * result + getManufacturingDate().hashCode();
+        return result;
     }
 }

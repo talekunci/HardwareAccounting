@@ -1,14 +1,14 @@
 package com.accounting.HardwareAccounting.validation;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import jakarta.persistence.Table;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
+import jakarta.validation.UnexpectedTypeException;
 import org.springframework.util.StringUtils;
 
-import javax.persistence.PersistenceContext;
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
-import javax.validation.UnexpectedTypeException;
 import java.lang.reflect.Field;
 
 public class UniqueValidation implements ConstraintValidator<IsUnique, Object> {

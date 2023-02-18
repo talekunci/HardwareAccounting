@@ -38,7 +38,7 @@ public class HardwareServiceImpl implements HardwareService {
     }
 
     @Override
-    public Optional<HardwareDto> getBySerialNumber(Long serialNumber) {
+    public Optional<HardwareDto> getBySerialNumber(String serialNumber) {
         return repository
                 .findBySerialNumber(serialNumber)
                 .map(this::mapToDto);

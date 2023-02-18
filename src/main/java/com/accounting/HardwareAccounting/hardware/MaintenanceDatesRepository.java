@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface MaintenanceDatesRepository extends JpaRepository<MaintenanceDates, UUID> {
+public interface MaintenanceDatesRepository extends JpaRepository<MaintenanceDate, UUID> {
 
 }
