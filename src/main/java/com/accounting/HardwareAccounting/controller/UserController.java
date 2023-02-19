@@ -1,8 +1,7 @@
-package com.accounting.HardwareAccounting.conroller;
+package com.accounting.HardwareAccounting.controller;
 
 import com.accounting.HardwareAccounting.user.UserDto;
 import com.accounting.HardwareAccounting.user.UserServiceImpl;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-@Controller
+@RestController
 @RequestMapping("/users")
 public class UserController {
 
