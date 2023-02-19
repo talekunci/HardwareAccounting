@@ -40,7 +40,7 @@ public class Hardware {
     private String installationAddress;
 
     @Column(name = "owner_phone_number")
-    private Integer ownerPhoneNumber;
+    private String ownerPhoneNumber;
 
     @Column(name = "owner_email", length = 320)
     private String ownerEmail;

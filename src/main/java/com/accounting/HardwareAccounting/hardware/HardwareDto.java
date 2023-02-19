@@ -51,8 +51,8 @@ public class HardwareDto {
     private String installationAddress;
 
     @NotEmpty
-    @Max(15)
-    private Integer ownerPhoneNumber;
+    @Size(max = 15)
+    private String ownerPhoneNumber;
 
     @NotEmpty
     @Size(max = 320)
