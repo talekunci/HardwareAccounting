@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8">
-  <title>Manufacturers</title>
+  <title>Hardware</title>
   <link rel = "stylesheet" type="text/css" th:href="@{/webjars/boostrap/css/boostrap.min.css}"/>
 </head>
 <body>
@@ -15,7 +15,6 @@
     <table border="1">
       <thead class="thead-dark">
       <tr>
-        <th>UUID</th>
         <th>Manufacturer</th>
         <th>Name</th>
         <th>S/N</th>
@@ -25,14 +24,11 @@
         <th>Installation Address</th>
         <th>Owner Phone</th>
         <th>Owner Email</th>
-        <th>Maintenance Dates</th>
-
       </tr>
       </thead>
       <tbody>
       <th:block th:each="hardware : ${hardwareList}">
         <tr>
-          <td>[[${hardware.uuid}]]</td>
           <td>[[${hardware.manufacturer}]]</td>
           <td>[[${hardware.name}]]</td>
           <td>[[${hardware.serialNumber}]]</td>
@@ -42,10 +38,9 @@
           <td>[[${hardware.installationAddress}]]</td>
           <td>[[${hardware.ownerPhoneNumber}]]</td>
           <td>[[${hardware.ownerEmail}]]</td>
-          <td>[[${hardware.maintenanceDates}]]</td>
-          <td sec:authorize="hasAnyAuthority('Admin')">
+          <td>
             <a class="h4 mr-3" th:href="@{'/hardware/edit/' + ${hardware.uuid}}">Edit</a>
-            <a class="h4" th:href="@{'/hardware/delete/' + ${hardware.uuid}}">Delete</a>
+            <a class="h4 mr-3" th:href="@{'/hardware/delete/' + ${hardware.uuid}}">Delete</a>
           </td>
         </tr>
       </th:block>
@@ -56,5 +51,16 @@
     </form>
   </div>
 </div>
+<script>
+    function doDelete(url) {
+        fetch(url, {
+            method: 'DELETE'
+        })
+            .then(() => {
+                    window.location.reload();
+                }
+            );
+    }
+</script>
 </body>
 </html>

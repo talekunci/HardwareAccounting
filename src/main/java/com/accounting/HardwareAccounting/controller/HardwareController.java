@@ -4,6 +4,7 @@ import com.accounting.HardwareAccounting.hardware.Hardware;
 import com.accounting.HardwareAccounting.hardware.HardwareDto;
 import com.accounting.HardwareAccounting.hardware.HardwareServiceImpl;
 import jakarta.validation.Valid;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-@RestController
+@Controller
 @RequestMapping("/hardware")
 public class HardwareController {
 
@@ -34,8 +35,8 @@ public class HardwareController {
         return "hardware_form";
     }
 
-    @PostMapping
-    public String createHardware(@Valid @RequestBody HardwareDto dto) {
+    @PostMapping ("/save")
+    public String saveHardware(HardwareDto dto) {
         service.create(dto);
         return "redirect:/hardware";
     }
@@ -45,8 +46,8 @@ public class HardwareController {
         return "redirect:/hardware";
     }
 
-    @GetMapping("/edit")
-    public String showEditingForm(@RequestParam("uuid") UUID uuid, Model model) {
+    @GetMapping("/edit/{uuid}")
+    public String showEditingForm(@PathVariable("uuid") UUID uuid, Model model) {
         try {
             Optional<HardwareDto> hardware = service.getByUuid(uuid);
             model.addAttribute("hardware", hardware);
@@ -56,8 +57,8 @@ public class HardwareController {
         }
     }
 
-    @DeleteMapping
-    public String deleteHardware(@RequestParam("uuid") UUID uuid) {
+    @GetMapping ("/delete/{uuid}")
+    public String deleteHardware(@PathVariable("uuid") UUID uuid) {
         service.delete(uuid);
         return "redirect:/hardware";
     }
