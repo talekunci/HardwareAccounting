@@ -70,7 +70,7 @@ public class HardwareServiceImpl implements HardwareService {
                     if (StringUtils.hasText(dto.getInstallationAddress()))
                         h.setInstallationAddress(dto.getInstallationAddress());
 
-                    if (dto.getOwnerPhoneNumber() <= 15)
+                    if (dto.getOwnerPhoneNumber().length() <= 15)
                         h.setOwnerPhoneNumber(dto.getOwnerPhoneNumber());
 
                     if (StringUtils.hasText(dto.getOwnerEmail()))
