@@ -9,7 +9,7 @@
 <div class="container-fluid text-center">
   <div><h2>Hardware</h2></div>
   <div>
-    <a sec:authorize="hasAnyAuthority('Admin')" class="h3" th:href="@{/hardware/new}">Add Hardware</a>
+    <a class="h4" th:href="@{/hardware/new}">Add Hardware</a>
   </div>
   <div>
     <table border="1">
@@ -44,8 +44,8 @@
           <td>[[${hardware.ownerEmail}]]</td>
           <td>[[${hardware.maintenanceDates}]]</td>
           <td sec:authorize="hasAnyAuthority('Admin')">
-            <a sec:authorize="hasAnyAuthority('Admin')" class="h4 mr-3" th:href="@{'/hardware/edit/' + ${hardware.uuid}}">Edit</a>
-            <a sec:authorize="hasAnyAuthority('Admin')" class="h4" th:href="@{'/hardware/delete/' + ${hardware.uuid}}">Delete</a>
+            <a class="h4 mr-3" th:href="@{'/hardware/edit/' + ${hardware.uuid}}">Edit</a>
+            <a class="h4" th:href="@{'/hardware/delete/' + ${hardware.uuid}}">Delete</a>
           </td>
         </tr>
       </th:block>
