@@ -4,6 +4,7 @@ import com.accounting.HardwareAccounting.hardware.Hardware;
 import com.accounting.HardwareAccounting.hardware.HardwareDto;
 import com.accounting.HardwareAccounting.hardware.HardwareServiceImpl;
 import jakarta.validation.Valid;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-@RestController
+@Controller
 @RequestMapping("/hardware")
 public class HardwareController {
 
@@ -40,6 +41,7 @@ public class HardwareController {
         return "redirect:/hardware";
     }
 
+    @PutMapping
     public String update(@Valid @RequestBody HardwareDto dto) {
         service.update(dto.getUuid(), dto);
         return "redirect:/hardware";
