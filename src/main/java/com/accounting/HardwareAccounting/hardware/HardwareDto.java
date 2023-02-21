@@ -6,11 +6,10 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import org.modelmapper.internal.bytebuddy.build.HashCodeAndEqualsPlugin;
 
 import java.sql.Date;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 import static com.fasterxml.jackson.annotation.JsonProperty.Access.READ_ONLY;
 
@@ -58,6 +57,6 @@ public class HardwareDto {
     @Size(max = 320)
     private String ownerEmail;
 
-    private Set<MaintenanceDate> maintenanceDates = new HashSet<>();
+    private SortedSet<MaintenanceDate> maintenanceDates;
 
 }
