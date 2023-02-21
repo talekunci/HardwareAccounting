@@ -14,8 +14,7 @@ public class MaintenanceDateDto {
 
   @JsonProperty(access = Access.READ_ONLY)
   private UUID uuid;
-  @NotEmpty
-  private UUID hardware_uuid;
+  private Hardware hardware;
   @NotEmpty
   private Date date;
   @NotEmpty

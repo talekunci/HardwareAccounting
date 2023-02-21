@@ -6,10 +6,12 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
-import org.modelmapper.internal.bytebuddy.build.HashCodeAndEqualsPlugin;
 
 import java.sql.Date;
-import java.util.*;
+import java.util.Comparator;
+import java.util.SortedSet;
+import java.util.TreeSet;
+import java.util.UUID;
 
 import static com.fasterxml.jackson.annotation.JsonProperty.Access.READ_ONLY;
 
@@ -57,6 +59,6 @@ public class HardwareDto {
     @Size(max = 320)
     private String ownerEmail;
 
-    private SortedSet<MaintenanceDate> maintenanceDates;
+    private SortedSet<MaintenanceDateDto> maintenanceDates = new TreeSet<>(Comparator.comparing(MaintenanceDateDto::getDate).reversed());
 
 }

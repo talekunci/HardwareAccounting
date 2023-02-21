@@ -49,13 +49,14 @@ public class HardwareController {
 
     @GetMapping("/edit")
     public String showEditingForm(@RequestParam("uuid") UUID uuid, Model model) {
-        try {
-            Optional<HardwareDto> hardware = service.getByUuid(uuid);
-            model.addAttribute("hardware", hardware);
-            return "hardware_form";
-        } catch (Exception e) {
+        Optional<HardwareDto> hardware = service.getByUuid(uuid);
+        if (hardware.isPresent()) {
+            model.addAttribute("hardware", hardware.get());
+        } else {
+            System.out.printf("Hardware with uuid = '%s' not found.", uuid.toString());
             return "redirect:/hardware";
         }
+        return "hardware_form";
     }
 
     @DeleteMapping
