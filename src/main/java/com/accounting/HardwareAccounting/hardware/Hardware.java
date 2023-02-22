@@ -1,15 +1,19 @@
 package com.accounting.HardwareAccounting.hardware;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Date;
-import java.util.Set;
+import java.util.Comparator;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import java.util.UUID;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "hardware")
 public class Hardware {
@@ -50,7 +54,7 @@ public class Hardware {
             mappedBy = "hardware",
             fetch = FetchType.EAGER
     )
-    private Set<MaintenanceDate> maintenanceDates;
+    private SortedSet<MaintenanceDate> maintenanceDates = new TreeSet<>(Comparator.comparing(MaintenanceDate::getDate).reversed());
 
     @Override
     public boolean equals(Object o) {

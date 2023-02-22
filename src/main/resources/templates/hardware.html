@@ -13,7 +13,7 @@
     <a class="h4" th:href="@{/hardware/new}">Add Hardware</a>
   </div>
   <div>
-    <table border="1">
+    <table class = "table table-bordered">
       <thead class="thead-dark">
       <tr>
         <th>Manufacturer</th>
@@ -39,7 +39,7 @@
           <td>[[${hardware.installationAddress}]]</td>
           <td>[[${hardware.ownerPhoneNumber}]]</td>
           <td>[[${hardware.ownerEmail}]]</td>
-          <td>
+          <td >
             <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
               <div class="btn-group me-2" role="group" aria-label="Second group">
                 <a th:href="@{'/hardware/edit?uuid=' + ${hardware.uuid}}" type="button"

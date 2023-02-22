@@ -8,8 +8,9 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 import java.sql.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Comparator;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import java.util.UUID;
 
 import static com.fasterxml.jackson.annotation.JsonProperty.Access.READ_ONLY;
@@ -58,6 +59,6 @@ public class HardwareDto {
     @Size(max = 320)
     private String ownerEmail;
 
-    private Set<MaintenanceDate> maintenanceDates = new HashSet<>();
+    private SortedSet<MaintenanceDateDto> maintenanceDates = new TreeSet<>(Comparator.comparing(MaintenanceDateDto::getDate).reversed());
 
 }

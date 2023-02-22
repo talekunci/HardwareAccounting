@@ -5,20 +5,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 public class HardwareServiceImpl implements HardwareService {
 
     private final HardwareRepository repository;
+    private final MaintenanceDateRepository maintenanceDateRepository;
     private final ModelMapper mapper;
 
     @Autowired
-    public HardwareServiceImpl(HardwareRepository repository, ModelMapper mapper) {
+    public HardwareServiceImpl(HardwareRepository repository, MaintenanceDateRepository maintenanceDateRepository, ModelMapper mapper) {
         this.repository = repository;
+        this.maintenanceDateRepository = maintenanceDateRepository;
         this.mapper = mapper;
     }
 
@@ -77,7 +77,10 @@ public class HardwareServiceImpl implements HardwareService {
                         h.setOwnerEmail(dto.getOwnerEmail());
 
                     if (dto.getMaintenanceDates() != null)
-                        h.getMaintenanceDates().addAll(dto.getMaintenanceDates());
+                        h.getMaintenanceDates().addAll(dto.getMaintenanceDates()
+                                .stream().map(this::mapFromDtoMaintenanceDate)
+                                .collect(Collectors.toSet())
+                        );
 
 
                     return h;
@@ -91,6 +94,52 @@ public class HardwareServiceImpl implements HardwareService {
     }
 
     @Override
+    public SortedSet<MaintenanceDateDto> getMaintenanceDatesByUuid(UUID uuid) {
+        Optional<Hardware> hardware = repository.findById(uuid);
+        if (hardware.isPresent()) {
+            return hardware.get()
+                    .getMaintenanceDates()
+                    .stream().map(this::mapToDtoMaintenanceDate)
+                    .collect(Collectors.toCollection(
+                            () -> new TreeSet<>(Comparator.comparing(MaintenanceDateDto::getDate).reversed())
+                    ));
+        }
+
+        return Collections.emptySortedSet();
+    }
+
+    @Override
+    public void addMaintenanceDateByUuid(UUID hardwareUuid, MaintenanceDateDto date) {
+        repository.findById(hardwareUuid)
+                .ifPresent(hardware -> {
+                    date.setHardware(hardware);
+                    maintenanceDateRepository.save(mapFromDtoMaintenanceDate(date));
+                });
+    }
+
+    @Override
+    public void updateMaintenanceDate(MaintenanceDateDto dateDto) {
+        maintenanceDateRepository.findById(dateDto.getUuid())
+                .map(date -> {
+                    if (dateDto.getDate() != null)
+                        date.setDate(dateDto.getDate());
+                    if (StringUtils.hasText(dateDto.getDescription()))
+                        date.setDescription(dateDto.getDescription());
+
+                    return date;
+                }).ifPresent(maintenanceDateRepository::save);
+    }
+
+    public Optional<MaintenanceDateDto> getMaintenanceDateByUuid(UUID uuid) {
+        return maintenanceDateRepository.findById(uuid)
+                .map(this::mapToDtoMaintenanceDate);
+    }
+
+    public void deleteMaintenanceDateByUuid(UUID uuid) {
+        maintenanceDateRepository.deleteById(uuid);
+    }
+
+    @Override
     public HardwareDto mapToDto(Hardware hardware) {
         return mapper.map(hardware, HardwareDto.class);
     }
@@ -98,5 +147,15 @@ public class HardwareServiceImpl implements HardwareService {
     @Override
     public Hardware mapFromDto(HardwareDto dto) {
         return mapper.map(dto, Hardware.class);
+    }
+
+    @Override
+    public MaintenanceDateDto mapToDtoMaintenanceDate(MaintenanceDate date) {
+        return mapper.map(date, MaintenanceDateDto.class);
+    }
+
+    @Override
+    public MaintenanceDate mapFromDtoMaintenanceDate(MaintenanceDateDto dto) {
+        return mapper.map(dto, MaintenanceDate.class);
     }
 }
