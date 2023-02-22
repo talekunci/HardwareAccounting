@@ -3,9 +3,10 @@ package com.accounting.HardwareAccounting.controller;
 import com.accounting.HardwareAccounting.user.UserDto;
 import com.accounting.HardwareAccounting.user.UserService;
 import jakarta.validation.Valid;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 @RequestMapping("/")
 public class MainController {
 

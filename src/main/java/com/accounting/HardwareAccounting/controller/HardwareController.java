@@ -46,8 +46,8 @@ public class HardwareController {
         return "redirect:/hardware";
     }
 
-    @GetMapping("/edit/{uuid}")
-    public String showEditingForm(@PathVariable("uuid") UUID uuid, Model model) {
+    @GetMapping("/edit")
+    public String showEditingForm(@RequestParam("uuid") UUID uuid, Model model) {
         try {
             Optional<HardwareDto> hardware = service.getByUuid(uuid);
             model.addAttribute("hardware", hardware);
@@ -57,8 +57,8 @@ public class HardwareController {
         }
     }
 
-    @GetMapping ("/delete/{uuid}")
-    public String deleteHardware(@PathVariable("uuid") UUID uuid) {
+    @DeleteMapping
+    public String deleteHardware(@RequestParam("uuid") UUID uuid) {
         service.delete(uuid);
         return "redirect:/hardware";
     }

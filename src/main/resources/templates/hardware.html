@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>Hardware</title>
-  <link rel = "stylesheet" type="text/css" th:href="@{/webjars/boostrap/css/boostrap.min.css}"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 <body>
 <div class="container-fluid text-center">
@@ -39,8 +40,15 @@
           <td>[[${hardware.ownerPhoneNumber}]]</td>
           <td>[[${hardware.ownerEmail}]]</td>
           <td>
-            <a class="h4 mr-3" th:href="@{'/hardware/edit/' + ${hardware.uuid}}">Edit</a>
-            <a class="h4 mr-3" th:href="@{'/hardware/delete/' + ${hardware.uuid}}">Delete</a>
+            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+              <div class="btn-group me-2" role="group" aria-label="Second group">
+                <a th:href="@{'/hardware/edit?uuid=' + ${hardware.uuid}}" type="button"
+                   class="btn btn-danger">Edit</a>
+                <button th:onclick="|@{'doDelete(\'' + ${hardware.uuid} + '\');'}|" type="button"
+                        class="btn btn-danger">Remove
+                </button>
+              </div>
+            </div>
           </td>
         </tr>
       </th:block>
@@ -52,8 +60,8 @@
   </div>
 </div>
 <script>
-    function doDelete(url) {
-        fetch(url, {
+    function doDelete(uuid) {
+        fetch(('/hardware?uuid=' + uuid), {
             method: 'DELETE'
         })
             .then(() => {
