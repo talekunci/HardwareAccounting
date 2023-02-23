@@ -30,6 +30,11 @@ public class HardwareController {
         return "hardware";
     }
 
+    @GetMapping("/{uuid}")
+    public String showOneHardware(@PathVariable UUID uuid, Model model) {
+        return showEditingForm(uuid, model);
+    }
+
     @OnlyAdminAllowed
     @GetMapping("/new")
     public String showCreatingForm(Model model) {
