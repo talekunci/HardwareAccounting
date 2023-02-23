@@ -55,9 +55,9 @@
                         <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                             <div class="btn-group me-2" role="group" aria-label="Second group">
                                 <a th:href="@{'/hardware/edit?uuid=' + ${hardware.uuid}}" type="button"
-                                   class="btn btn-primary">Edit</a>
+                                   class="btn btn-outline-primary">Edit</a>
                                 <button th:onclick="|@{'doDelete(\'' + ${hardware.uuid} + '\');'}|" type="button"
-                                        class="btn btn-danger">Remove
+                                        class="btn btn-outline-danger">Remove
                                 </button>
                             </div>
                         </div>
