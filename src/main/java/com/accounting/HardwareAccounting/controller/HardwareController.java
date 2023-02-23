@@ -1,5 +1,6 @@
 package com.accounting.HardwareAccounting.controller;
 
+import com.accounting.HardwareAccounting.configuration.OnlyAdminAllowed;
 import com.accounting.HardwareAccounting.hardware.Hardware;
 import com.accounting.HardwareAccounting.hardware.HardwareDto;
 import com.accounting.HardwareAccounting.hardware.HardwareServiceImpl;
@@ -29,24 +30,19 @@ public class HardwareController {
         return "hardware";
     }
 
+    @GetMapping("/{uuid}")
+    public String showOneHardware(@PathVariable UUID uuid, Model model) {
+        return showEditingForm(uuid, model);
+    }
+
+    @OnlyAdminAllowed
     @GetMapping("/new")
     public String showCreatingForm(Model model) {
         model.addAttribute("hardware", new Hardware());
         return "hardware_form";
     }
 
-    @PostMapping ("/save")
-    public String saveHardware(HardwareDto dto) {
-        service.create(dto);
-        return "redirect:/hardware";
-    }
-
-    @PutMapping
-    public String update(@Valid @RequestBody HardwareDto dto) {
-        service.update(dto.getUuid(), dto);
-        return "redirect:/hardware";
-    }
-
+    @OnlyAdminAllowed
     @GetMapping("/edit")
     public String showEditingForm(@RequestParam("uuid") UUID uuid, Model model) {
         Optional<HardwareDto> hardware = service.getByUuid(uuid);
@@ -59,6 +55,21 @@ public class HardwareController {
         return "hardware_form";
     }
 
+    @OnlyAdminAllowed
+    @PostMapping ("/save")
+    public String saveHardware(HardwareDto dto) {
+        service.create(dto);
+        return "redirect:/hardware";
+    }
+
+    @OnlyAdminAllowed
+    @PutMapping
+    public String update(@Valid @RequestBody HardwareDto dto) {
+        service.update(dto.getUuid(), dto);
+        return "redirect:/hardware";
+    }
+
+    @OnlyAdminAllowed
     @DeleteMapping
     public String deleteHardware(@RequestParam("uuid") UUID uuid) {
         service.delete(uuid);
