@@ -1,5 +1,6 @@
 package com.accounting.HardwareAccounting.controller;
 
+import com.accounting.HardwareAccounting.configuration.OnlyAdminAllowed;
 import com.accounting.HardwareAccounting.hardware.HardwareServiceImpl;
 import com.accounting.HardwareAccounting.hardware.MaintenanceDateDto;
 import jakarta.persistence.EntityNotFoundException;
@@ -33,6 +34,7 @@ public class MaintenanceDateController {
         return "maintenanceDatesSet";
     }
 
+    @OnlyAdminAllowed
     @GetMapping("/new")
     public String showEditingForm(Model model) {
         model.addAttribute("date", new MaintenanceDateDto());
@@ -40,6 +42,7 @@ public class MaintenanceDateController {
         return "maintenanceDateForm";
     }
 
+    @OnlyAdminAllowed
     @GetMapping("/edit")
     public String showEditingForm(@RequestParam UUID uuid, Model model) {
         Optional<MaintenanceDateDto> maintenanceDateDto = service.getMaintenanceDateByUuid(uuid);
@@ -52,6 +55,7 @@ public class MaintenanceDateController {
         return "maintenanceDateForm";
     }
 
+    @OnlyAdminAllowed
     @PostMapping
     public String createMaintenanceDate(
             @RequestParam UUID hardwareUuid,
@@ -63,11 +67,13 @@ public class MaintenanceDateController {
         return getMaintenanceDates(hardwareUuid, model);
     }
 
+    @OnlyAdminAllowed
     @PutMapping
     public void updateMaintenanceDate(@Valid @RequestBody MaintenanceDateDto maintenanceDateDto) {
         service.updateMaintenanceDate(maintenanceDateDto);
     }
 
+    @OnlyAdminAllowed
     @DeleteMapping
     public void deleteMaintenanceDate(@RequestParam UUID uuid) {
         service.deleteMaintenanceDateByUuid(uuid);

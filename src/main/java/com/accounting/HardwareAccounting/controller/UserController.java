@@ -1,5 +1,6 @@
 package com.accounting.HardwareAccounting.controller;
 
+import com.accounting.HardwareAccounting.configuration.OnlyAdminAllowed;
 import com.accounting.HardwareAccounting.user.UserDto;
 import com.accounting.HardwareAccounting.user.UserServiceImpl;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import java.util.UUID;
 
 @Controller
 @RequestMapping("/users")
+@OnlyAdminAllowed
 public class UserController {
 
     private final UserServiceImpl service;
