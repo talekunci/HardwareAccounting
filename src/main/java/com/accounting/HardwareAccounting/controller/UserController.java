@@ -32,7 +32,7 @@ public class UserController {
     @GetMapping("/new")
     public String showCreatingForm(Model model) {
         model.addAttribute("user", new UserDto());
-        return "user";
+        return "user_form";
     }
 
     @PostMapping
