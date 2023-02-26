@@ -31,7 +31,7 @@ public class MaintenanceDateController {
             return "redirect:/hardware";
         }
 
-        return "maintenanceDatesSet";
+        return "maintenance_dates";
     }
 
     @OnlyAdminAllowed
@@ -39,7 +39,7 @@ public class MaintenanceDateController {
     public String showEditingForm(Model model) {
         model.addAttribute("date", new MaintenanceDateDto());
 
-        return "maintenanceDateForm";
+        return "maintenance_date_form";
     }
 
     @OnlyAdminAllowed
@@ -52,7 +52,7 @@ public class MaintenanceDateController {
             return getMaintenanceDates(uuid, model);
         }
 
-        return "maintenanceDateForm";
+        return "maintenance_date_form";
     }
 
     @OnlyAdminAllowed
