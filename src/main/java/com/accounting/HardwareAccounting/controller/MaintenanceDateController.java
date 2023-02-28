@@ -1,9 +1,9 @@
 package com.accounting.HardwareAccounting.controller;
 
 import com.accounting.HardwareAccounting.configuration.OnlyAdminAllowed;
+import com.accounting.HardwareAccounting.hardware.HardwareDto;
 import com.accounting.HardwareAccounting.hardware.HardwareServiceImpl;
 import com.accounting.HardwareAccounting.hardware.MaintenanceDateDto;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,10 +24,15 @@ public class MaintenanceDateController {
 
     @GetMapping
     public String getMaintenanceDates(@RequestParam UUID hardwareUuid, Model model) {
-        try {
-            model.addAttribute("datesSet", service.getMaintenanceDatesByUuid(hardwareUuid));
-        } catch (EntityNotFoundException e) {
-            System.out.println(e.getMessage());
+        Optional<HardwareDto> dtoOptional = service.getByUuid(hardwareUuid);
+
+        if (dtoOptional.isPresent()) {
+            HardwareDto dto = dtoOptional.get();
+
+            model.addAttribute("datesSet", dto.getMaintenanceDates());
+            model.addAttribute("hardware", dto);
+        } else {
+            System.out.printf("Hardware by uuid='%s' not found.%n", hardwareUuid);
             return "redirect:/hardware";
         }
 
@@ -36,7 +41,8 @@ public class MaintenanceDateController {
 
     @OnlyAdminAllowed
     @GetMapping("/new")
-    public String showEditingForm(Model model) {
+    public String showCreatingForm(Model model) {
+        model.addAttribute("hardware", null);
         model.addAttribute("date", new MaintenanceDateDto());
 
         return "maintenance_date_form";

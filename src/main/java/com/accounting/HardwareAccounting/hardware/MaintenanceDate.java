@@ -14,7 +14,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @Table(name = "maintenance_dates")
-public class MaintenanceDate {
+public class MaintenanceDate implements Comparable<MaintenanceDate> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -49,5 +49,10 @@ public class MaintenanceDate {
         result = 31 * result + getDate().hashCode();
         result = 31 * result + getDescription().hashCode();
         return result;
+    }
+
+    @Override
+    public int compareTo(MaintenanceDate date) {
+        return getDate().compareTo(date.getDate());
     }
 }

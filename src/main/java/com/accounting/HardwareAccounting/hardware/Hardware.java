@@ -50,7 +50,7 @@ public class Hardware {
     private String ownerEmail;
 
     @OneToMany(
-            cascade = CascadeType.ALL,
+            cascade = CascadeType.DETACH,
             mappedBy = "hardware",
             fetch = FetchType.EAGER
     )

@@ -10,7 +10,7 @@ import java.sql.Date;
 import java.util.UUID;
 
 @Data
-public class MaintenanceDateDto {
+public class MaintenanceDateDto implements Comparable<MaintenanceDateDto> {
 
   @JsonProperty(access = Access.READ_ONLY)
   private UUID uuid;
@@ -21,4 +21,8 @@ public class MaintenanceDateDto {
   @Size(max = 450)
   private String description;
 
+  @Override
+  public int compareTo(MaintenanceDateDto dateDto) {
+    return getDate().compareTo(dateDto.getDate());
+  }
 }
