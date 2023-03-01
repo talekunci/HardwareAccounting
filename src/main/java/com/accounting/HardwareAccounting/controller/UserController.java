@@ -35,7 +35,8 @@ public class UserController {
         return "user_form";
     }
 
-    @PostMapping
+    @OnlyAdminAllowed
+    @PostMapping("/save")
     public String createUser(UserDto user) {
         service.create(user);
         return "redirect:/users";
@@ -52,6 +53,7 @@ public class UserController {
         }
     }
 
+    @OnlyAdminAllowed
     @DeleteMapping
     public String deleteUser(@RequestParam("uuid") UUID uuid) {
         service.delete(uuid);
