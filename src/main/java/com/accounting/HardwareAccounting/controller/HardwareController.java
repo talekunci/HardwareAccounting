@@ -1,7 +1,6 @@
 package com.accounting.HardwareAccounting.controller;
 
 import com.accounting.HardwareAccounting.configuration.OnlyAdminAllowed;
-import com.accounting.HardwareAccounting.hardware.Hardware;
 import com.accounting.HardwareAccounting.hardware.HardwareDto;
 import com.accounting.HardwareAccounting.hardware.HardwareServiceImpl;
 import jakarta.validation.Valid;
@@ -38,7 +37,7 @@ public class HardwareController {
     @OnlyAdminAllowed
     @GetMapping("/new")
     public String showCreatingForm(Model model) {
-        model.addAttribute("hardware", new Hardware());
+        model.addAttribute("hardware", new HardwareDto());
         return "hardware_form";
     }
 

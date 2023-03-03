@@ -1,0 +1,28 @@
+.table {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    text-align: left;
+    box-sizing: border-box;
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 1rem;
+    background-color: transparent;
+}
+.table thead {
+    font-size: 1rem;
+    line-height: 1.5;
+    border-collapse: collapse;
+    box-sizing: border-box;
+    text-align: inherit;
+    padding: .75rem;
+    vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+    color: #fff;
+    background-color: #212529;
+    border-color: #32383e;
+}
+.table tr {
+background-color: rgba(0, 0, 0, .05);
+}

@@ -32,10 +32,11 @@ public class UserController {
     @GetMapping("/new")
     public String showCreatingForm(Model model) {
         model.addAttribute("user", new UserDto());
-        return "user";
+        return "user_form";
     }
 
-    @PostMapping
+    @OnlyAdminAllowed
+    @PostMapping("/save")
     public String createUser(UserDto user) {
         service.create(user);
         return "redirect:/users";
@@ -52,6 +53,7 @@ public class UserController {
         }
     }
 
+    @OnlyAdminAllowed
     @DeleteMapping
     public String deleteUser(@RequestParam("uuid") UUID uuid) {
         service.delete(uuid);
