@@ -23,7 +23,7 @@ public interface HardwareService {
 
     void delete(UUID uuid);
 
-    SortedSet<MaintenanceDateDto> getMaintenanceDatesByUuid(UUID uuid);
+    SortedSet<MaintenanceDateDto> getMaintenanceDatesByHardwareUuid(UUID uuid);
 
     void addMaintenanceDateByUuid(UUID uuid, MaintenanceDateDto date);
 

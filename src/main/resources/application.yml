@@ -14,7 +14,7 @@ spring:
   datasource:
     url: jdbc:h2:mem:hardwareAccDevDB
     username: h2DevDB
-    password: secretPass159753
+    password: pa
     driverClassName: org.h2.Driver
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect

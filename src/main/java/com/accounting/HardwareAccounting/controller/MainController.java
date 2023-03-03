@@ -21,7 +21,7 @@ public class MainController {
 
     @GetMapping
     public String getHomepage() {
-        return "homepage";
+        return "redirect:/hardware";
     }
 
     @GetMapping("/register")

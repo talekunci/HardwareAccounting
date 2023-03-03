@@ -76,13 +76,6 @@ public class HardwareServiceImpl implements HardwareService {
                     if (StringUtils.hasText(dto.getOwnerEmail()))
                         h.setOwnerEmail(dto.getOwnerEmail());
 
-                    if (dto.getMaintenanceDates() != null)
-                        h.getMaintenanceDates().addAll(dto.getMaintenanceDates()
-                                .stream().map(this::mapFromDtoMaintenanceDate)
-                                .collect(Collectors.toSet())
-                        );
-
-
                     return h;
                 })
                 .ifPresent(repository::save);
@@ -94,7 +87,7 @@ public class HardwareServiceImpl implements HardwareService {
     }
 
     @Override
-    public SortedSet<MaintenanceDateDto> getMaintenanceDatesByUuid(UUID uuid) {
+    public SortedSet<MaintenanceDateDto> getMaintenanceDatesByHardwareUuid(UUID uuid) {
         Optional<Hardware> hardware = repository.findById(uuid);
         if (hardware.isPresent()) {
             return hardware.get()
@@ -109,11 +102,12 @@ public class HardwareServiceImpl implements HardwareService {
     }
 
     @Override
-    public void addMaintenanceDateByUuid(UUID hardwareUuid, MaintenanceDateDto date) {
+    public void addMaintenanceDateByUuid(UUID hardwareUuid, MaintenanceDateDto dateDto) {
         repository.findById(hardwareUuid)
                 .ifPresent(hardware -> {
+                    MaintenanceDate date = mapFromDtoMaintenanceDate(dateDto);
                     date.setHardware(hardware);
-                    maintenanceDateRepository.save(mapFromDtoMaintenanceDate(date));
+                    maintenanceDateRepository.save(date);
                 });
     }
 

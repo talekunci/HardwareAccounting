@@ -23,7 +23,6 @@ import static com.fasterxml.jackson.annotation.JsonProperty.Access.READ_ONLY;
 )
 public class HardwareDto {
 
-    @JsonProperty(access = READ_ONLY)
     private UUID uuid;
 
     @NotEmpty
@@ -58,7 +57,5 @@ public class HardwareDto {
     @NotEmpty
     @Size(max = 320)
     private String ownerEmail;
-
-    private SortedSet<MaintenanceDateDto> maintenanceDates = new TreeSet<>(Comparator.comparing(MaintenanceDateDto::getDate).reversed());
 
 }
