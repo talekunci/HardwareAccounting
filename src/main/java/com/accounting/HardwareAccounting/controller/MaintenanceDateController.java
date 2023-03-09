@@ -4,6 +4,7 @@ import com.accounting.HardwareAccounting.configuration.OnlyAdminAllowed;
 import com.accounting.HardwareAccounting.hardware.HardwareDto;
 import com.accounting.HardwareAccounting.hardware.HardwareServiceImpl;
 import com.accounting.HardwareAccounting.hardware.MaintenanceDateDto;
+import com.electronwill.nightconfig.core.conversion.Path;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -23,8 +24,8 @@ public class MaintenanceDateController {
         this.service = service;
     }
 
-    @GetMapping
-    public String getMaintenanceDates(@RequestParam UUID hardwareUuid, Model model) {
+    @GetMapping("/{hardwareUuid}")
+    public String getMaintenanceDates(@PathVariable UUID hardwareUuid, Model model) {
         Optional<HardwareDto> hardwareDto = service.getByUuid(hardwareUuid);
 
         if (hardwareDto.isPresent()) {
@@ -39,8 +40,8 @@ public class MaintenanceDateController {
     }
 
     @OnlyAdminAllowed
-    @GetMapping("/new")
-    public String showCreatingForm(@RequestParam UUID hardwareUuid, Model model) {
+    @GetMapping("/{hardwareUuid}/add")
+    public String showCreatingForm(@PathVariable UUID hardwareUuid, Model model) {
         Optional<HardwareDto> hardwareDto = service.getByUuid(hardwareUuid);
 
         if (hardwareDto.isPresent()) {
@@ -55,39 +56,42 @@ public class MaintenanceDateController {
     }
 
     @OnlyAdminAllowed
-    @GetMapping("/edit")
-    public String showEditingForm(@RequestParam UUID uuid, Model model) {
-        Optional<MaintenanceDateDto> maintenanceDateDto = service.getMaintenanceDateByUuid(uuid);
+    @GetMapping("/{dateUuid}/edit")
+    public String showEditingForm(@PathVariable UUID dateUuid, Model model) {
+        Optional<MaintenanceDateDto> maintenanceDateDto = service.getMaintenanceDateByUuid(dateUuid);
         if (maintenanceDateDto.isPresent()) {
             model.addAttribute("date", maintenanceDateDto.get());
         } else {
-            return getMaintenanceDates(uuid, model);
+            return getMaintenanceDates(dateUuid, model);
         }
 
         return "maintenance_date_form";
     }
 
     @OnlyAdminAllowed
-    @PostMapping
+    @PostMapping("/{hardwareUuid}")
     @ResponseStatus(value = HttpStatus.OK)
     public void createMaintenanceDate(
-            @RequestParam UUID hardwareUuid,
+            @PathVariable UUID hardwareUuid,
             @Valid @RequestBody MaintenanceDateDto maintenanceDateDto
     ) {
         service.addMaintenanceDateByUuid(hardwareUuid, maintenanceDateDto);
     }
 
     @OnlyAdminAllowed
-    @PutMapping
+    @PutMapping("/{dateUuid}")
     @ResponseStatus(value = HttpStatus.OK)
-    public void updateMaintenanceDate(@Valid @RequestBody MaintenanceDateDto maintenanceDateDto) {
-        service.updateMaintenanceDate(maintenanceDateDto);
+    public void updateMaintenanceDate(
+            @PathVariable UUID dateUuid,
+            @Valid @RequestBody MaintenanceDateDto dateDto
+    ) {
+        service.updateMaintenanceDate(dateUuid, dateDto);
     }
 
     @OnlyAdminAllowed
-    @DeleteMapping
+    @DeleteMapping("/{hardwareUuid}/{dateUuid}")
     @ResponseStatus(value = HttpStatus.OK)
-    public void deleteMaintenanceDate(@RequestParam UUID uuid) {
-        service.deleteMaintenanceDateByUuid(uuid);
+    public void deleteMaintenanceDate(@PathVariable UUID hardwareUuid, @PathVariable UUID dateUuid) {
+        service.deleteMaintenanceDateByUuid(hardwareUuid, dateUuid);
     }
 }

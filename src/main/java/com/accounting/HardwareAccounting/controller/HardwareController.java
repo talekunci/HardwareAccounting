@@ -4,6 +4,7 @@ import com.accounting.HardwareAccounting.configuration.OnlyAdminAllowed;
 import com.accounting.HardwareAccounting.hardware.HardwareDto;
 import com.accounting.HardwareAccounting.hardware.HardwareServiceImpl;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -35,15 +36,15 @@ public class HardwareController {
     }
 
     @OnlyAdminAllowed
-    @GetMapping("/new")
+    @GetMapping("/add")
     public String showCreatingForm(Model model) {
         model.addAttribute("hardware", new HardwareDto());
         return "hardware_form";
     }
 
     @OnlyAdminAllowed
-    @GetMapping("/edit")
-    public String showEditingForm(@RequestParam("uuid") UUID uuid, Model model) {
+    @GetMapping("/{uuid}/edit")
+    public String showEditingForm(@PathVariable("uuid") UUID uuid, Model model) {
         Optional<HardwareDto> hardware = service.getByUuid(uuid);
         if (hardware.isPresent()) {
             model.addAttribute("hardware", hardware.get());
@@ -55,24 +56,24 @@ public class HardwareController {
     }
 
     @OnlyAdminAllowed
-    @PostMapping ("/save")
-    public String saveHardware(HardwareDto dto) {
+    @PostMapping
+    @ResponseStatus(HttpStatus.OK)
+    public void saveHardware(HardwareDto dto) {
         service.create(dto);
-        return "redirect:/hardware";
     }
 
     @OnlyAdminAllowed
-    @PutMapping
-    public String update(@Valid @RequestBody HardwareDto dto) {
-        service.update(dto.getUuid(), dto);
-        return "redirect:/hardware";
+    @PutMapping("/{uuid}")
+    @ResponseStatus(HttpStatus.OK)
+    public void update(@PathVariable UUID uuid, @Valid @RequestBody HardwareDto dto) {
+        service.update(uuid, dto);
     }
 
+
     @OnlyAdminAllowed
-    @DeleteMapping
-    public String deleteHardware(@RequestParam("uuid") UUID uuid) {
+    @DeleteMapping("/{uuid}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteHardware(@PathVariable("uuid") UUID uuid) {
         service.delete(uuid);
-        return "redirect:/hardware";
     }
-
 }

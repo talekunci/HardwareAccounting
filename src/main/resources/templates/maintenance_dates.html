@@ -12,9 +12,11 @@
 <div class="container-fluid">
     <div class="header-h1"><h1>Hardware's Maintenance Dates</h1></div>
 
-    <div>
-        <a th:href="@{'/hardware/maintenanceDates/new?hardwareUuid=' + ${hardware.uuid}}" type="button"
+    <div class="btn-group">
+        <a th:href="@{'/hardware/maintenanceDates/' + ${hardware.uuid} + '/add'}" type="button"
            class="btn btn-primary mb-2">Add Date</a>
+        <a href="/hardware" type="button"
+           class="btn btn-secondary mb-2">Back to Hardware</a>
     </div>
 
     <div class="text-center">
@@ -36,10 +38,10 @@
                     <td style="display: block; margin: auto">
                         <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                             <div class="btn-group me-2" role="group" aria-label="Second group">
-                                <a th:href="@{'/hardware/maintenanceDates/edit?uuid=' + ${date.uuid}}" type="button"
-                                   class="btn btn-danger">Edit</a>
+                                <a th:href="@{'/hardware/maintenanceDates/' + ${date.uuid} + '/edit'}" type="button"
+                                   class="btn btn-outline-primary">Edit</a>
                                 <button th:onclick="|@{'doDelete(\'' + ${date.uuid} + '\');'}|" type="button"
-                                        class="btn btn-danger">Remove
+                                        class="btn btn-outline-danger">Remove
                                 </button>
                             </div>
                         </div>
@@ -50,20 +52,12 @@
         </table>
     </div>
 </div>
-<script>
+<script th:inline="javascript">
     function doDelete(uuid) {
-        fetch(('/hardware/maintenanceDates?uuid=' + uuid), {
-            method: 'DELETE'
-        })
-            .then(() => {
-                    window.location.reload();
-                }
-            );
-    }
+        let url = '/hardware/maintenanceDates/' + [[${hardware.uuid}]] + '/' + uuid;
 
-    function creatingPage(uuid) {
-        fetch(('/hardware/maintenanceDates/new?uuid=' + uuid), {
-            method: 'GET'
+        fetch(url, {
+            method: 'DELETE'
         })
             .then(() => {
                     window.location.reload();

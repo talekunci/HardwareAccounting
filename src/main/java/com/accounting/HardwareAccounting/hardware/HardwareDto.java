@@ -46,15 +46,12 @@ public class HardwareDto {
 
     private Date installationDate;
 
-    @NotEmpty
     @Size(max = 72)
     private String installationAddress;
 
-    @NotEmpty
     @Size(max = 15)
     private String ownerPhoneNumber;
 
-    @NotEmpty
     @Size(max = 320)
     private String ownerEmail;
 

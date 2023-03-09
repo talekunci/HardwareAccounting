@@ -27,9 +27,9 @@ public interface HardwareService {
 
     void addMaintenanceDateByUuid(UUID uuid, MaintenanceDateDto date);
 
-    void updateMaintenanceDate(MaintenanceDateDto date);
+    void updateMaintenanceDate(UUID uuid, MaintenanceDateDto date);
 
-    void deleteMaintenanceDateByUuid(UUID uuid);
+    void deleteMaintenanceDateByUuid(UUID hardwareUuid, UUID dateUuid);
 
     HardwareDto mapToDto(Hardware hardware);
 

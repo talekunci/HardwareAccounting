@@ -21,7 +21,7 @@ public class MaintenanceDate implements Comparable<MaintenanceDate> {
     private UUID uuid;
 
     @ToString.Exclude
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "hardware_uuid", nullable = false)
     private Hardware hardware;
 

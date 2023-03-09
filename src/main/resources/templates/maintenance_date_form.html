@@ -40,7 +40,7 @@
                             type="button" class="btn btn-outline-success">Save
                     </button>
                     <a type="button" class="btn btn-outline-primary"
-                       th:href="@{'/hardware/maintenanceDates?hardwareUuid=' + ${date.hardware.uuid}}">Back
+                       th:href="@{'/hardware/maintenanceDates/' + ${date.hardware.uuid}}">Back
                     </a>
                 </div>
             </div>
@@ -59,14 +59,15 @@
             hardware: [[${date.hardware}]],
             description: description.value
         }
-        let url = '/hardware/maintenanceDates';
+        let url = '/hardware/maintenanceDates/';
         let method;
 
-        if (window.location.href.includes("/new")) {
-            url += '?hardwareUuid=' + [[${date.hardware.uuid}]];
+        if (window.location.href.includes("/add")) {
             method = 'POST';
+            url += [[${date.hardware.uuid}]];
         } else {
             method = 'PUT';
+            url += [[${date.uuid}]];
         }
 
         fetch(url, {

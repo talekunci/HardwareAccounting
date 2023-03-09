@@ -112,8 +112,8 @@ public class HardwareServiceImpl implements HardwareService {
     }
 
     @Override
-    public void updateMaintenanceDate(MaintenanceDateDto dateDto) {
-        maintenanceDateRepository.findById(dateDto.getUuid())
+    public void updateMaintenanceDate(UUID uuid, MaintenanceDateDto dateDto) {
+        maintenanceDateRepository.findById(uuid)
                 .map(date -> {
                     if (dateDto.getDate() != null)
                         date.setDate(dateDto.getDate());
@@ -129,8 +129,14 @@ public class HardwareServiceImpl implements HardwareService {
                 .map(this::mapToDtoMaintenanceDate);
     }
 
-    public void deleteMaintenanceDateByUuid(UUID uuid) {
-        maintenanceDateRepository.deleteById(uuid);
+    public void deleteMaintenanceDateByUuid(UUID hardwareUuid, UUID dateUuid) {
+        maintenanceDateRepository.findById(dateUuid)
+                .ifPresent(maintenanceDate -> {
+                    repository.findById(hardwareUuid)
+                            .ifPresent(h -> h.getMaintenanceDates().remove(maintenanceDate));
+
+                    maintenanceDateRepository.deleteById(dateUuid);
+                });
     }
 
     @Override

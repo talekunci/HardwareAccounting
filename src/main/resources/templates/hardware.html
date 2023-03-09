@@ -14,15 +14,13 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3">
     <div class="container-fluid">
         <a class="navbar-brand">Hardware Accounting Application</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class=" collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ms-auto ">
-                <li class="nav-item">
-                    <a class="nav-link mx-2" th:href="@{/}">Home Page</a>
-                </li>
                 <li class="nav-item">
                     <a class="nav-link mx-2 active" aria-current="page" th:href="@{/hardware}">Hardware</a>
                 </li>
@@ -36,15 +34,13 @@
         </div>
     </div>
 </nav>
+
 <div class="container-fluid">
     <div class="header-h1"><h1>Hardware</h1></div>
 
     <div>
-        <a th:href="@{/hardware/new}" type="button"
+        <a th:href="@{/hardware/add}" type="button"
            class="btn btn-primary mb-2">Add Hardware</a>
-
-        <a th:href="@{/logout}" type="button"
-           class="btn btn-secondary mb-2">Logout</a>
     </div>
 
     <div class="text-center">
@@ -80,8 +76,10 @@
                     <td>
                         <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                             <div class="btn-group me-2" role="group" aria-label="Second group">
-                                <a th:href="@{'/hardware/edit?uuid=' + ${hardware.uuid}}" type="button"
+                                <a th:href="@{'/hardware/' + ${hardware.uuid} + '/edit'}" type="button"
                                    class="btn btn-outline-primary">Edit</a>
+                                <a type="button" class="btn btn-outline-primary"
+                                   th:href="@{'/hardware/maintenanceDates/' + ${hardware.uuid}}">Maintenance dates</a>
                                 <button th:onclick="|@{'doDelete(\'' + ${hardware.uuid} + '\');'}|" type="button"
                                         class="btn btn-outline-danger">Remove
                                 </button>
@@ -96,7 +94,7 @@
 </div>
 <script>
     function doDelete(uuid) {
-        fetch(('/hardware?uuid=' + uuid), {
+        fetch(('/hardware/' + uuid), {
             method: 'DELETE'
         })
             .then(() => {
