@@ -3,7 +3,6 @@ package com.accounting.HardwareAccounting.validation;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
-import jakarta.persistence.Table;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import jakarta.validation.UnexpectedTypeException;
@@ -13,7 +12,7 @@ import java.lang.reflect.Field;
 
 public class UniqueValidation implements ConstraintValidator<IsUnique, Object> {
 
-    private String table;
+    private String entityType;
 
     private String field;
 
@@ -23,16 +22,10 @@ public class UniqueValidation implements ConstraintValidator<IsUnique, Object> {
     @Override
     public void initialize(IsUnique constraintAnnotation) {
         this.field = constraintAnnotation.field();
-        this.table = constraintAnnotation.table();
+        this.entityType = constraintAnnotation.model().getSimpleName();
 
-        if (!StringUtils.hasText(table)) {
-            Class<?> model = constraintAnnotation.model();
-            Table tableAnnotation = model.getDeclaredAnnotation(Table.class);
-            if (tableAnnotation != null) {
-                this.table = tableAnnotation.name();
-            } else {
-                throw new UnexpectedTypeException("Model or table name not declared.");
-            }
+        if (!StringUtils.hasText(entityType)) {
+            throw new UnexpectedTypeException("Model type is not declared.");
         }
     }
 
@@ -50,7 +43,7 @@ public class UniqueValidation implements ConstraintValidator<IsUnique, Object> {
 
         if (fieldValue != null) {
             Query query = entityManager.createQuery(
-                    String.format("select count(*) > 0 from %s where %s = :param", this.table, this.field)
+                    String.format("select count(*) > 0 from %s where %s = :param", this.entityType, this.field)
             );
             query.setParameter("param", fieldValue);
 

@@ -1,7 +1,5 @@
 package com.accounting.HardwareAccounting.hardware;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -13,12 +11,14 @@ import java.util.UUID;
 @Data
 public class MaintenanceDateDto implements Comparable<MaintenanceDateDto> {
 
-//  @JsonProperty(access = Access.READ_ONLY)
   private UUID uuid;
+
   @NotNull
   private HardwareDto hardware;
+
   @NotNull
   private Date date;
+
   @NotEmpty
   @Size(max = 450)
   private String description;

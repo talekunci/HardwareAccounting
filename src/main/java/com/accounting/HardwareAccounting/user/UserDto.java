@@ -20,7 +20,6 @@ import static com.fasterxml.jackson.annotation.JsonProperty.Access.WRITE_ONLY;
 )
 public class UserDto {
 
-    @JsonProperty(access = READ_ONLY)
     private UUID uuid;
 
     @NotEmpty

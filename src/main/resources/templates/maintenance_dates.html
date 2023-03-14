@@ -35,9 +35,9 @@
                     <td>[[${date.date}]]</td>
                     <td>[[${date.description}]]</td>
 
-                    <td style="display: block; margin: auto">
+                    <td style="width: 200px">
                         <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                            <div class="btn-group me-2" role="group" aria-label="Second group">
+                            <div class="btn-group mx-auto" role="group" aria-label="Second group">
                                 <a th:href="@{'/hardware/maintenanceDates/' + ${date.uuid} + '/edit'}" type="button"
                                    class="btn btn-outline-primary">Edit</a>
                                 <button th:onclick="|@{'doDelete(\'' + ${date.uuid} + '\');'}|" type="button"
@@ -52,6 +52,7 @@
         </table>
     </div>
 </div>
+
 <script th:inline="javascript">
     function doDelete(uuid) {
         let url = '/hardware/maintenanceDates/' + [[${hardware.uuid}]] + '/' + uuid;

@@ -60,6 +60,9 @@ public class HardwareServiceImpl implements HardwareService {
                     if (StringUtils.hasText(dto.getName()))
                         h.setName(dto.getName());
 
+                    if (StringUtils.hasText(dto.getSerialNumber()))
+                        h.setSerialNumber(dto.getSerialNumber());
+
                     if (StringUtils.hasText(dto.getDescription()))
                         h.setDescription(dto.getDescription());
 

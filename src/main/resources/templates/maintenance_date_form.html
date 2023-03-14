@@ -7,16 +7,17 @@
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
     <link th:href="@{/css/header-style.css}" rel="stylesheet">
+    <link th:href="@{/css/field-mark.css}" rel="stylesheet">
 </head>
 <body>
 <div class="container-fluid">
     <div class="header-h1"><h1>New Hardware's Maintenance Date</h1></div>
 
-    <form th:object="${date}"
-          style="max-width: 500px; margin: 0 auto">
-        <div class="border border-secondary rounded p-3">
+    <form th:object="${date}" style="max-width: 400px; margin: 0 auto">
+
+        <div class="border border-secondary rounded p-3 text-center">
             <div class="form-group row mb-2">
-                <label class="col-sm-4 col-form-label">Date</label>
+                <label class="col-sm-4 col-form-label">Date<span class="necessary-mark">*</span></label>
                 <div class="col-sm-8">
                     <label>
                         <input type="date" th:field="*{date}" class="form-control" required minlength="2"
@@ -25,7 +26,7 @@
                 </div>
             </div>
             <div class="form-group row mb-2">
-                <label class="col-sm-4 col-form-label">Description</label>
+                <label class="col-sm-4 col-form-label">Description<span class="necessary-mark">*</span></label>
                 <div class="col-sm-8">
                     <label>
                         <input type="text" th:field="*{description}" class="form-control" required minlength="2"
@@ -34,20 +35,19 @@
                 </div>
             </div>
 
-            <div class="text-center">
-                <div class="btn-group" role="group">
-                    <button th:onclick="save()"
-                            type="button" class="btn btn-outline-success">Save
-                    </button>
-                    <a type="button" class="btn btn-outline-primary"
-                       th:href="@{'/hardware/maintenanceDates/' + ${date.hardware.uuid}}">Back
-                    </a>
-                </div>
+            <div class="btn-group" role="group">
+                <button th:onclick="save()"
+                        type="button" class="btn btn-outline-success">Save
+                </button>
+                <a type="button" class="btn btn-outline-primary"
+                   th:href="@{'/hardware/maintenanceDates/' + ${hardware.uuid}}">Back
+                </a>
             </div>
         </div>
 
     </form>
 </div>
+
 <script th:inline="javascript">
     let date = document.getElementById('date');
     let description = document.getElementById('description');
@@ -56,7 +56,7 @@
         let body = {
             uuid: [[${date.uuid}]],
             date: date.value,
-            hardware: [[${date.hardware}]],
+            hardware: [[${hardware}]],
             description: description.value
         }
         let url = '/hardware/maintenanceDates/';
@@ -64,7 +64,7 @@
 
         if (window.location.href.includes("/add")) {
             method = 'POST';
-            url += [[${date.hardware.uuid}]];
+            url += [[${hardware.uuid}]];
         } else {
             method = 'PUT';
             url += [[${date.uuid}]];

@@ -46,8 +46,8 @@ public class MaintenanceDateController {
 
         if (hardwareDto.isPresent()) {
             var date = new MaintenanceDateDto();
-            date.setHardware(hardwareDto.get());
             model.addAttribute("date", date);
+            model.addAttribute("hardware", hardwareDto.get());
         } else {
             return getMaintenanceDates(hardwareUuid, model);
         }
@@ -58,9 +58,11 @@ public class MaintenanceDateController {
     @OnlyAdminAllowed
     @GetMapping("/{dateUuid}/edit")
     public String showEditingForm(@PathVariable UUID dateUuid, Model model) {
-        Optional<MaintenanceDateDto> maintenanceDateDto = service.getMaintenanceDateByUuid(dateUuid);
-        if (maintenanceDateDto.isPresent()) {
-            model.addAttribute("date", maintenanceDateDto.get());
+        Optional<MaintenanceDateDto> dateOptional = service.getMaintenanceDateByUuid(dateUuid);
+        if (dateOptional.isPresent()) {
+            var dateDto = dateOptional.get();
+            model.addAttribute("date", dateDto);
+            model.addAttribute("hardware", dateDto.getHardware());
         } else {
             return getMaintenanceDates(dateUuid, model);
         }
@@ -83,7 +85,7 @@ public class MaintenanceDateController {
     @ResponseStatus(value = HttpStatus.OK)
     public void updateMaintenanceDate(
             @PathVariable UUID dateUuid,
-            @Valid @RequestBody MaintenanceDateDto dateDto
+            @RequestBody MaintenanceDateDto dateDto
     ) {
         service.updateMaintenanceDate(dateUuid, dateDto);
     }

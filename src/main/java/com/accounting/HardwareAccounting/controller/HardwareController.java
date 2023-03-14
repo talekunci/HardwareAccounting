@@ -58,14 +58,14 @@ public class HardwareController {
     @OnlyAdminAllowed
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
-    public void saveHardware(HardwareDto dto) {
+    public void saveHardware(@Valid @RequestBody HardwareDto dto) {
         service.create(dto);
     }
 
     @OnlyAdminAllowed
     @PutMapping("/{uuid}")
     @ResponseStatus(HttpStatus.OK)
-    public void update(@PathVariable UUID uuid, @Valid @RequestBody HardwareDto dto) {
+    public void update(@PathVariable UUID uuid, @RequestBody HardwareDto dto) {
         service.update(uuid, dto);
     }
 
