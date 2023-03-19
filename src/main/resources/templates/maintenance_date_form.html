@@ -16,6 +16,7 @@
     <form th:object="${date}" style="max-width: 400px; margin: 0 auto">
 
         <div class="border border-secondary rounded p-3 text-center">
+            <input id="uuid" type="hidden" th:field="*{uuid}">
             <div class="form-group row mb-2">
                 <label class="col-sm-4 col-form-label">Date<span class="necessary-mark">*</span></label>
                 <div class="col-sm-8">
@@ -36,7 +37,7 @@
             </div>
 
             <div class="btn-group" role="group">
-                <button th:onclick="save()"
+                <button th:onclick="|@{'save(\'' + ${hardware.uuid} + '\', uuid)'}|"
                         type="button" class="btn btn-outline-success">Save
                 </button>
                 <a type="button" class="btn btn-outline-primary"
@@ -48,44 +49,7 @@
     </form>
 </div>
 
-<script th:inline="javascript">
-    let date = document.getElementById('date');
-    let description = document.getElementById('description');
-
-    function save() {
-        let body = {
-            uuid: [[${date.uuid}]],
-            date: date.value,
-            hardware: [[${hardware}]],
-            description: description.value
-        }
-        let url = '/hardware/maintenanceDates/';
-        let method;
-
-        if (window.location.href.includes("/add")) {
-            method = 'POST';
-            url += [[${hardware.uuid}]];
-        } else {
-            method = 'PUT';
-            url += [[${date.uuid}]];
-        }
-
-        fetch(url, {
-            method: method,
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-            },
-            body: JSON.stringify(body)
-        })
-            .then(() => {
-                if (method === 'POST') {
-                    window.location.assign(url);
-                } else {
-                    window.location.reload();
-                }
-            });
-    }
-</script>
+<script src="/js/maintenanceDates.js"></script>
 
 </body>
 </html>

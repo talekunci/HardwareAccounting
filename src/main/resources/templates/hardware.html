@@ -81,8 +81,7 @@
                                 <a type="button" class="btn btn-outline-primary"
                                    th:href="@{'/hardware/maintenanceDates/' + ${hardware.uuid}}">Maintenance dates</a>
                                 <button th:onclick="|@{'doDelete(\'' + ${hardware.uuid} + '\');'}|" type="button"
-                                        class="btn btn-outline-danger">Remove
-                                </button>
+                                        class="btn btn-outline-danger">Remove</button>
                             </div>
                         </div>
                     </td>
@@ -92,16 +91,8 @@
         </table>
     </div>
 </div>
-<script>
-    function doDelete(uuid) {
-        fetch(('/hardware/' + uuid), {
-            method: 'DELETE'
-        })
-            .then(() => {
-                    window.location.reload();
-                }
-            );
-    }
-</script>
+
+<script src="/js/hardware.js"></script>
+
 </body>
 </html>

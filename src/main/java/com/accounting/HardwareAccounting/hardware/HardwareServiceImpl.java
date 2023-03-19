@@ -63,21 +63,47 @@ public class HardwareServiceImpl implements HardwareService {
                     if (StringUtils.hasText(dto.getSerialNumber()))
                         h.setSerialNumber(dto.getSerialNumber());
 
-                    if (StringUtils.hasText(dto.getDescription()))
-                        h.setDescription(dto.getDescription());
+                    String dtoDescription = dto.getDescription();
+                    if (dtoDescription.equals("") || StringUtils.hasText(dtoDescription)) {
+                        h.setDescription(dtoDescription);
+                    }
 
-                    if (dto.getInstallationDate() != null
-                            && dto.getInstallationDate().getTime() > dto.getManufacturingDate().getTime())
-                        h.setManufacturer(dto.getManufacturer());
+                    if (dto.getInstallationDate() != null) {
+                        if (dto.getInstallationDate().getTime() > dto.getManufacturingDate().getTime()) {
+                            h.setManufacturer(dto.getManufacturer());
+                        }
+                    }
 
-                    if (StringUtils.hasText(dto.getInstallationAddress()))
-                        h.setInstallationAddress(dto.getInstallationAddress());
+                    String dtoInstallationAddress = dto.getInstallationAddress();
+                    if (dtoInstallationAddress.equals("") || StringUtils.hasText(dtoInstallationAddress)) {
+                        h.setInstallationAddress(dtoInstallationAddress);
+                    }
 
-                    if (dto.getOwnerPhoneNumber().length() <= 15)
-                        h.setOwnerPhoneNumber(dto.getOwnerPhoneNumber());
+                    String dtoOwnerPhoneNumber = dto.getOwnerPhoneNumber();
+                    if (dtoOwnerPhoneNumber.equals("")) {
+                        h.setOwnerPhoneNumber(dtoOwnerPhoneNumber);
+                    } else {
+                        if (dtoOwnerPhoneNumber.matches(
+                                "^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$"
+                        )) {
+                            h.setOwnerPhoneNumber(dtoOwnerPhoneNumber);
+                        } else {
+                            System.out.println("Wrong hardware owner's phone number format.");
+                        }
+                    }
 
-                    if (StringUtils.hasText(dto.getOwnerEmail()))
-                        h.setOwnerEmail(dto.getOwnerEmail());
+                    String dtoOwnerEmail = dto.getOwnerEmail();
+                    if (dtoOwnerEmail.equals("")) {
+                        h.setOwnerEmail(dtoOwnerEmail);
+                    } else {
+                        if (dtoOwnerEmail.matches(
+                                "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$"
+                        )) {
+                            h.setOwnerEmail(dtoOwnerEmail);
+                        } else {
+                            System.out.println("Wrong hardware owner's email format.");
+                        }
+                    }
 
                     return h;
                 })

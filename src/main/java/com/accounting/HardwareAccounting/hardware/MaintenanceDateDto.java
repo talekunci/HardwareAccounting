@@ -13,7 +13,6 @@ public class MaintenanceDateDto implements Comparable<MaintenanceDateDto> {
 
   private UUID uuid;
 
-  @NotNull
   private HardwareDto hardware;
 
   @NotNull

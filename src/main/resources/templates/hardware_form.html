@@ -16,6 +16,7 @@
     <form th:object="${hardware}" style="max-width: 500px; margin: 0 auto">
 
         <div class="border border-secondary rounded p-3 text-center">
+            <input type="text" th:field="*{uuid}" class="form-control" th:type="hidden" id="uuid"/>
             <div class="form-group row mb-2">
                 <label class="col-sm-4 col-form-label">Manufacturer<span class="necessary-mark">*</span></label>
                 <div class="col-sm-8">
@@ -95,59 +96,7 @@
     </form>
 </div>
 
-<script th:inline="javascript">
-    function cancelForm() {
-        window.location = "/hardware"
-    }
+<script src="/js/hardware.js"></script>
 
-    const serial = document.getElementById('serial');
-    const manufacturer = document.getElementById('manufacturer');
-    const name = document.getElementById('name');
-    const description = document.getElementById('description');
-    const manufacturingDate = document.getElementById('manufacturingDate');
-    const installationDate = document.getElementById('installationDate');
-    const installationAddress = document.getElementById('installationAddress');
-    const ownerPhoneNumber = document.getElementById('ownerPhoneNumber');
-    const ownerEmail = document.getElementById('ownerEmail');
-
-    function save() {
-        let body = {
-            uuid: [[${hardware.uuid}]],
-            serialNumber: serial.value,
-            manufacturer: manufacturer.value,
-            name: name.value,
-            description: description.value,
-            manufacturingDate: manufacturingDate.value,
-            installationDate: installationDate.value,
-            installationAddress: installationAddress.value,
-            ownerPhoneNumber: ownerPhoneNumber.value,
-            ownerEmail: ownerEmail.value
-        }
-        let url = '/hardware';
-        let method;
-
-        if (window.location.href.includes("/add")) {
-            method = 'POST';
-        } else {
-            method = 'PUT';
-            url += '/' + [[${hardware.uuid}]];
-        }
-
-        fetch(url, {
-            method: method,
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-            },
-            body: JSON.stringify(body)
-        })
-            .then(() => {
-                if (method === 'POST') {
-                    window.location.assign(url);
-                } else {
-                    window.location.reload();
-                }
-            });
-    }
-</script>
 </body>
 </html>

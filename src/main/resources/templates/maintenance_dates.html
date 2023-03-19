@@ -40,7 +40,7 @@
                             <div class="btn-group mx-auto" role="group" aria-label="Second group">
                                 <a th:href="@{'/hardware/maintenanceDates/' + ${date.uuid} + '/edit'}" type="button"
                                    class="btn btn-outline-primary">Edit</a>
-                                <button th:onclick="|@{'doDelete(\'' + ${date.uuid} + '\');'}|" type="button"
+                                <button th:onclick="|@{'doDelete(\'' + ${hardware.uuid} + '\', \'' + ${date.uuid} + '\');'}|" type="button"
                                         class="btn btn-outline-danger">Remove
                                 </button>
                             </div>
@@ -53,18 +53,7 @@
     </div>
 </div>
 
-<script th:inline="javascript">
-    function doDelete(uuid) {
-        let url = '/hardware/maintenanceDates/' + [[${hardware.uuid}]] + '/' + uuid;
+<script src="/js/maintenanceDates.js"></script>
 
-        fetch(url, {
-            method: 'DELETE'
-        })
-            .then(() => {
-                    window.location.reload();
-                }
-            );
-    }
-</script>
 </body>
 </html>
