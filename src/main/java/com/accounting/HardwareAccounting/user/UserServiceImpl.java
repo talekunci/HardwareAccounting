@@ -65,9 +65,6 @@ public class UserServiceImpl implements UserService {
                             if (StringUtils.hasText(dto.getLogin()))
                                 user.setLogin(dto.getLogin());
 
-                            if (!dto.getRoles().isEmpty())
-                                user.getRoles().addAll(dto.getRoles());
-
                             return user;
                         }
                 ).ifPresent(repository::save);

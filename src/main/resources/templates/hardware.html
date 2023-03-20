@@ -63,6 +63,7 @@
             <tbody>
             <th:block th:each="hardware : ${hardwareList}">
                 <tr>
+                    <td style="display: none" id="uuid">[[${hardware.uuid}]]</td>
                     <td>[[${hardware.manufacturer}]]</td>
                     <td>[[${hardware.name}]]</td>
                     <td>[[${hardware.serialNumber}]]</td>
@@ -80,7 +81,7 @@
                                    class="btn btn-outline-primary">Edit</a>
                                 <a type="button" class="btn btn-outline-primary"
                                    th:href="@{'/hardware/maintenanceDates/' + ${hardware.uuid}}">Maintenance dates</a>
-                                <button th:onclick="|@{'doDelete(\'' + ${hardware.uuid} + '\');'}|" type="button"
+                                <button onclick="doDelete()" type="button"
                                         class="btn btn-outline-danger">Remove</button>
                             </div>
                         </div>

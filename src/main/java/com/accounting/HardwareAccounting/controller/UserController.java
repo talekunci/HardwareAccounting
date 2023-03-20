@@ -3,6 +3,8 @@ package com.accounting.HardwareAccounting.controller;
 import com.accounting.HardwareAccounting.configuration.OnlyAdminAllowed;
 import com.accounting.HardwareAccounting.user.UserDto;
 import com.accounting.HardwareAccounting.user.UserServiceImpl;
+import com.electronwill.nightconfig.core.conversion.Path;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -35,15 +37,8 @@ public class UserController {
         return "user_form";
     }
 
-    @OnlyAdminAllowed
-    @PostMapping("/save")
-    public String createUser(UserDto user) {
-        service.create(user);
-        return "redirect:/users";
-    }
-
-    @GetMapping("/update")
-    public String showEditingForm(@RequestParam("uuid") UUID uuid, Model model) {
+    @GetMapping("/{uuid}/edit")
+    public String showEditingForm(@PathVariable("uuid") UUID uuid, Model model) {
         try {
             Optional<UserDto> user = service.getByUuid(uuid);
             model.addAttribute("user", user);
@@ -53,11 +48,22 @@ public class UserController {
         }
     }
 
-    @OnlyAdminAllowed
-    @DeleteMapping
-    public String deleteUser(@RequestParam("uuid") UUID uuid) {
-        service.delete(uuid);
+    @PostMapping
+    public String createUser(@RequestBody UserDto dto) {
+        service.create(dto);
         return "redirect:/users";
+    }
+
+    @PutMapping("/{uuid}")
+    @ResponseStatus(HttpStatus.OK)
+    public void update(@PathVariable UUID uuid, @RequestBody UserDto dto) {
+        service.update(uuid, dto);
+    }
+
+    @DeleteMapping("/{uuid}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteUser(@PathVariable("uuid") UUID uuid) {
+        service.delete(uuid);
     }
 
 }

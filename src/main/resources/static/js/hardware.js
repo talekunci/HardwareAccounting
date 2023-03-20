@@ -1,16 +1,3 @@
-function cancelForm() {
-    window.location = "/hardware";
-}
-function doDelete(uuid) {
-    fetch(('/hardware/' + uuid), {
-        method: 'DELETE'
-    })
-        .then(() => {
-                window.location.reload();
-            }
-        );
-}
-
 const uuid = document.getElementById('uuid');
 const serial = document.getElementById('serial');
 const manufacturer = document.getElementById('manufacturer');
@@ -21,6 +8,19 @@ const installationDate = document.getElementById('installationDate');
 const installationAddress = document.getElementById('installationAddress');
 const ownerPhoneNumber = document.getElementById('ownerPhoneNumber');
 const ownerEmail = document.getElementById('ownerEmail');
+
+function cancelForm() {
+    window.location = "/hardware";
+}
+function doDelete() {
+    fetch(('/hardware/' + uuid.innerText), {
+        method: 'DELETE'
+    })
+        .then(() => {
+                window.location.reload();
+            }
+        );
+}
 
 function save() {
     if (manufacturer.value === "") {

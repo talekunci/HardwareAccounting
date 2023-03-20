@@ -14,15 +14,15 @@ import java.util.stream.Collectors;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private final UserServiceImpl userService;
+    private final UserRepository repository;
 
-    public UserDetailsServiceImpl(UserServiceImpl userService) {
-        this.userService = userService;
+    public UserDetailsServiceImpl(UserRepository repository) {
+        this.repository = repository;
     }
 
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        Optional<UserDto> user = userService.getByLogin(login);
+        Optional<User> user = repository.findByLogin(login);
 
         if (user.isEmpty())
             throw new UsernameNotFoundException("User by this login not found.");
@@ -32,9 +32,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     static class UserDetail implements UserDetails {
 
-        private final UserDto user;
+        private final User user;
 
-        UserDetail(UserDto user) {
+        UserDetail(User user) {
             this.user = user;
         }
 
