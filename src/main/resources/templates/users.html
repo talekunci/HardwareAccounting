@@ -10,29 +10,8 @@
     <link th:href="@{/css/table.css}" rel="stylesheet">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3">
-    <div class="container-fluid">
-        <a class="navbar-brand">Hardware Accounting Application</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
-                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+<div th:insert="~{/navbar}"></div>
 
-        <div class=" collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav ms-auto ">
-                <li class="nav-item">
-                    <a class="nav-link mx-2" th:href="@{/hardware}">Hardware</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link mx-2 active" aria-current="page" th:href="@{/users}">Users</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link mx-2" th:href="@{/logout}">Logout</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
 <div class="container-fluid">
     <div class="header-h1"><h1>Users</h1></div>
 

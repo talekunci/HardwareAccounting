@@ -9,6 +9,8 @@
     <link th:href="@{/css/header-style.css}" rel="stylesheet">
 </head>
 <body>
+<div th:insert="~{/navbar}"></div>
+
 <div class="container-fluid">
     <div class="header-h1"><h1>Hardware's Maintenance Dates</h1></div>
 
@@ -40,7 +42,8 @@
                             <div class="btn-group mx-auto" role="group" aria-label="Second group">
                                 <a th:href="@{'/hardware/maintenanceDates/' + ${date.uuid} + '/edit'}" type="button"
                                    class="btn btn-outline-primary">Edit</a>
-                                <button th:onclick="|@{'doDelete(\'' + ${hardware.uuid} + '\', \'' + ${date.uuid} + '\');'}|" type="button"
+                                <button th:onclick="|@{'doDelete(\'' + ${hardware.uuid} + '\', \'' + ${date.uuid} + '\');'}|"
+                                        type="button"
                                         class="btn btn-outline-danger">Remove
                                 </button>
                             </div>
