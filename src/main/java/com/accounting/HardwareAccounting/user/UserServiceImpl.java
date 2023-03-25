@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
         user.setPassword(encoder.encode(user.getPassword()));
         user.setRoles(Set.of(roleRepo.findByName("User")));
 
-        repository.save(mapFromDto(dto));
+        repository.save(user);
     }
 
     @Override

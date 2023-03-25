@@ -23,7 +23,7 @@ public class ProdWebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests().and()
-                .formLogin().permitAll()
+                .formLogin().loginPage("login").permitAll()
                 .and()
                 .authorizeHttpRequests().requestMatchers("/register").permitAll()
                 .and()

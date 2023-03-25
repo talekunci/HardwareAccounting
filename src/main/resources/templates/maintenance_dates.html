@@ -7,6 +7,7 @@
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
     <link th:href="@{/css/header-style.css}" rel="stylesheet">
+    <link th:href="@{/css/table.css}" rel="stylesheet">
 </head>
 <body>
 <div th:insert="~{/navbar}"></div>
@@ -24,14 +25,14 @@
     <div class="text-center">
         <table class="table table-bordered">
             <thead class="thead-dark">
-            <tr>
+            <tr class="text-center">
                 <th>Date</th>
                 <th>Description</th>
                 <th>Action</th>
             </tr>
             </thead>
 
-            <tbody>
+            <tbody class="text-center">
             <th:block th:each="date : ${datesSet}">
                 <tr>
                     <td>[[${date.date}]]</td>

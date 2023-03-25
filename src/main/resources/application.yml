@@ -5,6 +5,8 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant-path-matcher
+    favicon:
+      enabled: false
   profiles:
     default: "dev"
 
