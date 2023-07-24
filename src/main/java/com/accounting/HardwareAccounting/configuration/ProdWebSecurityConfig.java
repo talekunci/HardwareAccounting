@@ -22,16 +22,28 @@ public class ProdWebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests().and()
-                .formLogin().loginPage("login").permitAll()
+                .authorizeHttpRequests()
+                .requestMatchers(
+                        "/register",
+                        "/images/**",
+                        "/css/**",
+                        "/js/**"
+                ).permitAll();
+
+        http
+                .authorizeHttpRequests()
+                .anyRequest().authenticated()
                 .and()
-                .authorizeHttpRequests().requestMatchers("/register").permitAll()
-                .and()
+                .formLogin(login -> {
+                    login.loginPage("/login");
+                    login.usernameParameter("login");
+                    login.failureForwardUrl("/login?error");
+                    login.successForwardUrl("/");
+                    login.permitAll();
+                })
                 .logout().permitAll()
                 .and()
-                .cors()
-                .and()
-                .authorizeHttpRequests().anyRequest().authenticated();
+                .httpBasic();
 
         return http.build();
     }

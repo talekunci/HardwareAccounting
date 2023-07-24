@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:replace="basicHead"></head>
 <head>
-    <meta charset="UTF-8">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <title>Login</title>
 
-    <link rel="icon" type="image/ico" th:href="@{/static/logo/favicon.ico}">
     <link th:href="@{/css/login-page.css}" rel="stylesheet">
 </head>
 
@@ -15,11 +12,11 @@
     <div class="container-fluid h-custom">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-md-9 col-lg-6 col-xl-5">
-                <img th:src="@{/logo/main.png}"
+                <img th:src="@{/images/main.png}"
                      class="img-fluid" alt="App logo">
             </div>
             <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-                <form th:action="@{/login}">
+                <form th:action="@{/login}" method="post">
                     <div>
                         <h1 class="mb-4">Log In page</h1>
 
@@ -33,16 +30,16 @@
                     </div>
                     <!-- Login input -->
                     <div class="form-outline mb-4">
-                        <input name="login" type="text" id="form3Example3" class="form-control form-control-lg"
+                        <input name="login" type="text" id="loginInput" class="form-control form-control-lg"
                                placeholder="Enter a login"/>
-                        <label class="form-label" for="form3Example3">Login</label>
+                        <label class="form-label" for="loginInput">Login</label>
                     </div>
 
                     <!-- Password input -->
                     <div class="form-outline mb-3">
-                        <input name="password" type="password" id="form3Example4" class="form-control form-control-lg"
+                        <input name="password" type="password" id="passInput" class="form-control form-control-lg"
                                placeholder="Enter password"/>
-                        <label class="form-label" for="form3Example4">Password</label>
+                        <label class="form-label" for="passInput">Password</label>
                     </div>
 
                     <div class="text-center text-lg-start mt-4 pt-2">
