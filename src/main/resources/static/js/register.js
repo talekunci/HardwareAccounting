@@ -26,6 +26,8 @@ function save() {
     }).then(r => {
         if (!r.ok) {
             alert("Oops! Something went wrong.");
+        } else {
+            window.location.replace("/");
         }
     });
 }

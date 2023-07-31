@@ -24,11 +24,16 @@ public class ProdWebSecurityConfig {
         http
                 .authorizeHttpRequests()
                 .requestMatchers(
+                        "/login",
                         "/register",
                         "/images/**",
                         "/css/**",
                         "/js/**"
-                ).permitAll();
+
+                ).permitAll()
+                .requestMatchers(
+                        "/h2/**"
+                ).denyAll();
 
         http
                 .authorizeHttpRequests()
@@ -37,13 +42,15 @@ public class ProdWebSecurityConfig {
                 .formLogin(login -> {
                     login.loginPage("/login");
                     login.usernameParameter("login");
-                    login.failureForwardUrl("/login?error");
-                    login.successForwardUrl("/");
-                    login.permitAll();
+                    login.passwordParameter("password");
                 })
-                .logout().permitAll()
+                .logout()
+                .logoutSuccessUrl("/login?logout")
                 .and()
                 .httpBasic();
+
+        http
+                .csrf().disable();
 
         return http.build();
     }
