@@ -73,12 +73,12 @@ public class DevWebSecurityConfig {
                 .inMemoryAuthentication()
                 .withUser("user")
                 .password(passwordEncoder.encode("123"))
-                .roles("User");
+                .roles("ROLE_User");
         auth
                 .inMemoryAuthentication()
                 .withUser("admin")
                 .password(passwordEncoder.encode("890"))
-                .roles("Admin");
+                .roles("ROLE_Admin");
     }
 
 }

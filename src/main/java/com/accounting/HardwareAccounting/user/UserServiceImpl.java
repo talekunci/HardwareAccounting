@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
     public void create(UserDto dto) {
         User user = mapFromDto(dto);
         user.setPassword(encoder.encode(user.getPassword()));
-        user.setRoles(Set.of(roleRepo.findByName("User")));
+        user.setRoles(Set.of(roleRepo.findByName("ROLE_User")));
 
         repository.save(user);
     }
