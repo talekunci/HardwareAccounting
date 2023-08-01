@@ -3,7 +3,6 @@ package com.accounting.HardwareAccounting.controller;
 import com.accounting.HardwareAccounting.configuration.OnlyAdminAllowed;
 import com.accounting.HardwareAccounting.user.UserDto;
 import com.accounting.HardwareAccounting.user.UserServiceImpl;
-import com.electronwill.nightconfig.core.conversion.Path;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
