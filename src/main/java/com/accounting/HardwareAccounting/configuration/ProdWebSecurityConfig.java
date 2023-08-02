@@ -32,6 +32,9 @@ public class ProdWebSecurityConfig {
 
                 ).permitAll()
                 .requestMatchers(
+                        "/users/**"
+                ).hasAuthority("ROLE_Admin")
+                .requestMatchers(
                         "/h2/**"
                 ).denyAll();
 

@@ -40,7 +40,10 @@ public class DevWebSecurityConfig {
                         "/css/**",
                         "/js/**"
 
-                ).permitAll();
+                ).permitAll()
+                .requestMatchers(
+                        "/users/**"
+                ).hasAuthority("ROLE_Admin");
 
         http
                 .authorizeHttpRequests()
@@ -73,12 +76,12 @@ public class DevWebSecurityConfig {
                 .inMemoryAuthentication()
                 .withUser("user")
                 .password(passwordEncoder.encode("123"))
-                .roles("ROLE_User");
+                .roles("User");
         auth
                 .inMemoryAuthentication()
                 .withUser("admin")
                 .password(passwordEncoder.encode("890"))
-                .roles("ROLE_Admin");
+                .roles("Admin");
     }
 
 }
