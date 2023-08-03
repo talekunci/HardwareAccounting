@@ -1,5 +1,6 @@
 package com.accounting.HardwareAccounting.user;
 
+import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -73,6 +74,25 @@ public class UserServiceImpl implements UserService {
     @Override
     public void delete(UUID uuid) {
         repository.deleteById(uuid);
+    }
+
+    @Override
+    @Transactional
+    public void block(UUID uuid) {
+        repository.findById(uuid)
+                .ifPresent(user -> {
+                    user.setBlocked(true);
+                    repository.save(user);
+                });
+    }
+
+    @Override
+    public void unblock(UUID uuid) {
+        repository.findById(uuid)
+                .ifPresent(user -> {
+                    user.setBlocked(false);
+                    repository.save(user);
+                });
     }
 
     @Override

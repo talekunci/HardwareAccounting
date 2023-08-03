@@ -28,4 +28,7 @@ public class UserDto {
     @NotEmpty
     @JsonProperty(access = WRITE_ONLY)
     private String password;
+
+    private boolean blocked;
+
 }

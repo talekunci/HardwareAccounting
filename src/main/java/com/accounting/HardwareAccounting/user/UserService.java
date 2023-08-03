@@ -22,6 +22,10 @@ public interface UserService {
 
     void delete(UUID uuid);
 
+    void block(UUID uuid);
+
+    void unblock(UUID uuid);
+
     UserDto mapToDto(User user);
 
     User mapFromDto(UserDto dto);

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:insert="~{basicHead}"></head>
 <head>
-    <title>Hardware</title>
+    <title>Users</title>
 
     <link th:href="@{/css/header-style.css}" rel="stylesheet">
     <link th:href="@{/css/table.css}" rel="stylesheet">
@@ -13,16 +13,12 @@
 <div class="container-fluid">
     <div class="header-h1"><h1>Users</h1></div>
 
-    <div>
-        <a th:href="@{/users/new}" type="button"
-           class="btn btn-primary mb-2">Add User</a>
-    </div>
-
     <div class="text-center">
         <table class="table table-bordered">
             <thead>
             <tr>
                 <th class="text-center">Login</th>
+                <th class="text-center">Is blocked</th>
                 <th class="text-center" style="width: 300px;">Action</th>
             </tr>
             </thead>
@@ -32,15 +28,17 @@
                 <tr>
                     <td style="display: none" class="text-center" id="uuid">[[${user.uuid}]]</td>
                     <td class="text-center">[[${user.login}]]</td>
+                    <td class="text-center">[[${user.blocked}]]</td>
 
                     <td>
                         <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                             <div style="text-align: center; margin: 0 auto">
                                 <div class="btn-group me-2" role="group" aria-label="Second group">
-                                    <a th:href="@{'/users/' + ${user.uuid} + '/edit'}" type="button"
-                                       class="btn btn-outline-primary">Edit</a>
-                                    <button onclick="doDelete()" type="button"
-                                            class="btn btn-outline-danger">Remove
+                                    <button th:onclick="@{'doBlock(' + '\'' + ${user.uuid} + '\'' + ')'}" type="button"
+                                            class="btn btn-outline-danger">Block
+                                    </button>
+                                    <button th:onclick="@{'doUnblock(' + '\'' + ${user.uuid} + '\'' + ')'}" type="button"
+                                            class="btn btn-outline-danger">Unblock
                                     </button>
                                 </div>
                             </div>

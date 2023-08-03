@@ -13,7 +13,7 @@
 <div class="container-fluid">
     <div class="header-h1"><h1>Hardware</h1></div>
 
-    <div>
+    <div sec:authorize="hasAuthority('ROLE_Admin')">
         <a th:href="@{/hardware/add}" type="button"
            class="btn btn-primary mb-2">Add Hardware</a>
     </div>
@@ -51,7 +51,8 @@
 
                     <td>
                         <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                            <div class="btn-group me-2" role="group" aria-label="Second group">
+<!--                            Admin can do all the CRUD ops-->
+                            <div sec:authorize="hasAuthority('ROLE_Admin')" class="btn-group me-2" role="group" aria-label="Second group">
                                 <a th:href="@{'/hardware/' + ${hardware.uuid} + '/edit'}" type="button"
                                    class="btn btn-outline-primary">Edit</a>
                                 <a type="button" class="btn btn-outline-primary"
@@ -59,6 +60,11 @@
                                 <button onclick="doDelete()" type="button"
                                         class="btn btn-outline-danger">Remove
                                 </button>
+                            </div>
+<!--                            If user hasn't Admin authority-->
+                            <div sec:authorize="!hasAuthority('ROLE_Admin')" class="btn-group me-2" role="group" aria-label="Second group">
+                                <a type="button" class="btn btn-outline-primary"
+                                   th:href="@{'/hardware/maintenanceDates/' + ${hardware.uuid}}">Maintenance dates</a>
                             </div>
                         </div>
                     </td>

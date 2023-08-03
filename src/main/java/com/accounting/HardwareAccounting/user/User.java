@@ -23,6 +23,9 @@ public class User {
     @Column(name = "password", length = 72, nullable = false)
     private String password;
 
+    @Column(name = "blocked")
+    private boolean blocked;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_roles",

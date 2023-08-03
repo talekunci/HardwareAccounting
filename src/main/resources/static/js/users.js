@@ -1,12 +1,20 @@
-const uuid = document.getElementById('uuid');
 
 function cancelForm() {
     window.location = "/users";
 }
 
-function doDelete() {
-    fetch(('/users/' + uuid.innerText), {
-        method: 'DELETE'
+function doBlock(uuid) {
+    fetch(('/users/' + uuid + '/block'), {
+        method: 'PUT'
+    })
+        .then(() => {
+                window.location.reload();
+            }
+        );
+}
+function doUnblock(uuid) {
+    fetch(('/users/' + uuid + '/unblock'), {
+        method: 'PUT'
     })
         .then(() => {
                 window.location.reload();

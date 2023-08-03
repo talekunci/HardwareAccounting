@@ -3,6 +3,7 @@ package com.accounting.HardwareAccounting.controller;
 import com.accounting.HardwareAccounting.configuration.OnlyAdminAllowed;
 import com.accounting.HardwareAccounting.user.UserDto;
 import com.accounting.HardwareAccounting.user.UserServiceImpl;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,13 +31,7 @@ public class UserController {
         return "users";
     }
 
-    @GetMapping("/new")
-    public String showCreatingForm(Model model) {
-        model.addAttribute("user", new UserDto());
-        return "user_form";
-    }
-
-    @GetMapping("/{uuid}/edit")
+//    @GetMapping("/{uuid}/edit")
     public String showEditingForm(@PathVariable("uuid") UUID uuid, Model model) {
         try {
             Optional<UserDto> user = service.getByUuid(uuid);
@@ -47,19 +42,25 @@ public class UserController {
         }
     }
 
-    @PostMapping
-    public String createUser(@RequestBody UserDto dto) {
-        service.create(dto);
-        return "redirect:/users";
+    @PutMapping("/{uuid}/block")
+    @ResponseStatus(HttpStatus.OK)
+    public void blockUser(@PathVariable UUID uuid) {
+        service.block(uuid);
     }
 
-    @PutMapping("/{uuid}")
+    @PutMapping("/{uuid}/unblock")
+    @ResponseStatus(HttpStatus.OK)
+    public void unblockUser(@PathVariable UUID uuid) {
+        service.unblock(uuid);
+    }
+
+//    @PutMapping("/{uuid}")
     @ResponseStatus(HttpStatus.OK)
     public void update(@PathVariable UUID uuid, @RequestBody UserDto dto) {
         service.update(uuid, dto);
     }
 
-    @DeleteMapping("/{uuid}")
+//    @DeleteMapping("/{uuid}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteUser(@PathVariable("uuid") UUID uuid) {
         service.delete(uuid);
