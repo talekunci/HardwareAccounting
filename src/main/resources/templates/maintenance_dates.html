@@ -14,7 +14,8 @@
     <div class="header-h1"><h1>Hardware's Maintenance Dates</h1></div>
 
     <div class="btn-group">
-        <a th:href="@{'/hardware/maintenanceDates/' + ${hardware.uuid} + '/add'}" type="button"
+        <a sec:authorize="hasAuthority('ROLE_Admin')"
+           th:href="@{'/hardware/maintenanceDates/' + ${hardware.uuid} + '/add'}" type="button"
            class="btn btn-primary mb-2">Add Date</a>
         <a href="/hardware" type="button"
            class="btn btn-secondary mb-2">Back to Hardware</a>
@@ -26,7 +27,7 @@
             <tr class="text-center">
                 <th>Date</th>
                 <th>Description</th>
-                <th>Action</th>
+                <th sec:authorize="hasAuthority('ROLE_Admin')">Action</th>
             </tr>
             </thead>
 
@@ -36,7 +37,7 @@
                     <td>[[${date.date}]]</td>
                     <td>[[${date.description}]]</td>
 
-                    <td style="width: 200px">
+                    <td sec:authorize="hasAuthority('ROLE_Admin')" style="width: 200px">
                         <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                             <div class="btn-group mx-auto" role="group" aria-label="Second group">
                                 <a th:href="@{'/hardware/maintenanceDates/' + ${date.uuid} + '/edit'}" type="button"
