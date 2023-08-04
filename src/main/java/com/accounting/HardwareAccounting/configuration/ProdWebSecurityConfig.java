@@ -3,6 +3,7 @@ package com.accounting.HardwareAccounting.configuration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -12,6 +13,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @Profile("production")
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class ProdWebSecurityConfig {
 
     @Bean
@@ -31,9 +33,6 @@ public class ProdWebSecurityConfig {
                         "/js/**"
 
                 ).permitAll()
-                .requestMatchers(
-                        "/users/**"
-                ).hasAuthority("ROLE_Admin")
                 .requestMatchers(
                         "/h2/**"
                 ).denyAll();
