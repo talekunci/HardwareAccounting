@@ -90,3 +90,12 @@ function save() {
         }
     });
 }
+
+function dynamicObjects() {
+    if (url.endsWith("/add")) {
+        document.getElementById("datesButton").style.display = 'none';
+        document.getElementById("header").childNodes[0].textContent = "New Hardware";
+    } else if (url.endsWith("/edit")) {
+        document.getElementById("header").childNodes[0].textContent = "Editing Hardware";
+    }
+}

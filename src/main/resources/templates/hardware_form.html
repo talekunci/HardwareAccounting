@@ -7,11 +7,11 @@
     <link th:href="@{/css/header-style.css}" rel="stylesheet">
     <link th:href="@{/css/field-mark.css}" rel="stylesheet">
 </head>
-<body>
+<body onload="dynamicObjects()">
 <div th:insert="~{/navbar}"></div>
 
 <div class="container-fluid">
-    <div class="header-h1"><h1>Hardware form</h1></div>
+    <div class="header-h1" id="header"><h1>Hardware form</h1></div>
 
     <form th:object="${hardware}" style="max-width: 500px; margin: 0 auto">
 
@@ -87,6 +87,7 @@
                 <button onclick="save()" type="button" class="btn btn-outline-success">Save</button>
 
                 <a type="button" class="btn btn-outline-primary"
+                   id="datesButton"
                    th:href="@{'/hardware/maintenanceDates/' + ${hardware.uuid}}">Maintenance dates</a>
 
                 <button type="button" class="btn btn-outline-primary" onclick="cancelForm()">Back</button>
