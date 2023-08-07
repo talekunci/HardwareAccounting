@@ -64,23 +64,23 @@ public class HardwareServiceImpl implements HardwareService {
                         h.setSerialNumber(dto.getSerialNumber());
 
                     String dtoDescription = dto.getDescription();
-                    if (dtoDescription.equals("") || StringUtils.hasText(dtoDescription)) {
+                    if (dtoDescription.isEmpty() || StringUtils.hasText(dtoDescription)) {
                         h.setDescription(dtoDescription);
                     }
 
                     if (dto.getInstallationDate() != null) {
                         if (dto.getInstallationDate().getTime() > dto.getManufacturingDate().getTime()) {
-                            h.setManufacturer(dto.getManufacturer());
+                            h.setInstallationDate(dto.getInstallationDate());
                         }
                     }
 
                     String dtoInstallationAddress = dto.getInstallationAddress();
-                    if (dtoInstallationAddress.equals("") || StringUtils.hasText(dtoInstallationAddress)) {
+                    if (dtoInstallationAddress.isEmpty() || StringUtils.hasText(dtoInstallationAddress)) {
                         h.setInstallationAddress(dtoInstallationAddress);
                     }
 
                     String dtoOwnerPhoneNumber = dto.getOwnerPhoneNumber();
-                    if (dtoOwnerPhoneNumber.equals("")) {
+                    if (dtoOwnerPhoneNumber.isEmpty()) {
                         h.setOwnerPhoneNumber(dtoOwnerPhoneNumber);
                     } else {
                         if (dtoOwnerPhoneNumber.matches(
@@ -93,7 +93,7 @@ public class HardwareServiceImpl implements HardwareService {
                     }
 
                     String dtoOwnerEmail = dto.getOwnerEmail();
-                    if (dtoOwnerEmail.equals("")) {
+                    if (dtoOwnerEmail.isEmpty()) {
                         h.setOwnerEmail(dtoOwnerEmail);
                     } else {
                         if (dtoOwnerEmail.matches(

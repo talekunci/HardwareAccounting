@@ -56,7 +56,7 @@
                                 <a th:href="@{'/hardware/' + ${hardware.uuid} + '/edit'}" type="button"
                                    class="btn btn-outline-primary">Edit</a>
                                 <a type="button" class="btn btn-outline-primary"
-                                   th:href="@{'/hardware/maintenanceDates/' + ${hardware.uuid}}">Maintenance dates</a>
+                                   th:href="@{'/hardware/' + ${hardware.uuid} + '/maintenanceDates'}">Maintenance dates</a>
                                 <button onclick="doDelete()" type="button"
                                         class="btn btn-outline-danger">Remove
                                 </button>
@@ -64,7 +64,7 @@
 <!--                            If user hasn't Admin authority-->
                             <div sec:authorize="!hasAuthority('ROLE_Admin')" class="btn-group me-2" role="group" aria-label="Second group">
                                 <a type="button" class="btn btn-outline-primary"
-                                   th:href="@{'/hardware/maintenanceDates/' + ${hardware.uuid}}">Maintenance dates</a>
+                                   th:href="@{'/hardware/' + ${hardware.uuid} + '/maintenanceDates'}">Maintenance dates</a>
                             </div>
                         </div>
                     </td>

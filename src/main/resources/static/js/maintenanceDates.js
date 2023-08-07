@@ -1,5 +1,5 @@
 function doDelete(hardwareUuid, dateUuid) {
-    let url = '/hardware/maintenanceDates/' + hardwareUuid + '/' + dateUuid;
+    let url = '/hardware/' + hardwareUuid + '/maintenanceDates/' + dateUuid;
 
     fetch(url, {
         method: 'DELETE'
@@ -29,15 +29,14 @@ function save(hardwareUuid, dateUuid) {
         date: date.value,
         description: description.value
     }
-    let url = '/hardware/maintenanceDates/';
+    let url = `/hardware/${hardwareUuid}/maintenanceDates`;
     let method;
 
     if (window.location.href.includes("/add")) {
         method = 'POST';
-        url += hardwareUuid;
     } else {
         method = 'PUT';
-        url += dateUuid.value;
+        url += '/' + dateUuid.value;
     }
 
     fetch(url, {

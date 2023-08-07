@@ -15,7 +15,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Controller
-@RequestMapping("/hardware/maintenanceDates")
+@RequestMapping("/hardware/{hardwareUuid}/maintenanceDates")
 public class MaintenanceDateController {
 
     private final HardwareServiceImpl service;
@@ -24,7 +24,7 @@ public class MaintenanceDateController {
         this.service = service;
     }
 
-    @GetMapping("/{hardwareUuid}")
+    @GetMapping
     public String getMaintenanceDates(@PathVariable UUID hardwareUuid, Model model) {
         Optional<HardwareDto> hardwareDto = service.getByUuid(hardwareUuid);
 
@@ -40,7 +40,7 @@ public class MaintenanceDateController {
     }
 
     @OnlyAdminAllowed
-    @GetMapping("/{hardwareUuid}/add")
+    @GetMapping("/add")
     public String showCreatingForm(@PathVariable UUID hardwareUuid, Model model) {
         Optional<HardwareDto> hardwareDto = service.getByUuid(hardwareUuid);
 
@@ -71,7 +71,7 @@ public class MaintenanceDateController {
     }
 
     @OnlyAdminAllowed
-    @PostMapping("/{hardwareUuid}")
+    @PostMapping
     @ResponseStatus(value = HttpStatus.OK)
     public void createMaintenanceDate(
             @PathVariable UUID hardwareUuid,
@@ -91,7 +91,7 @@ public class MaintenanceDateController {
     }
 
     @OnlyAdminAllowed
-    @DeleteMapping("/{hardwareUuid}/{dateUuid}")
+    @DeleteMapping("/{dateUuid}")
     @ResponseStatus(value = HttpStatus.OK)
     public void deleteMaintenanceDate(@PathVariable UUID hardwareUuid, @PathVariable UUID dateUuid) {
         service.deleteMaintenanceDateByUuid(hardwareUuid, dateUuid);
