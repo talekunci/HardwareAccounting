@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:insert="~{basicHead}"></head>
 <head>
-    <title>Users</title>
+    <title>User Roles</title>
 
     <link th:href="@{/css/header-style.css}" rel="stylesheet">
     <link th:href="@{/css/table.css}" rel="stylesheet">
@@ -11,38 +11,44 @@
 <div th:insert="~{/navbar}"></div>
 
 <div class="container-fluid">
-    <div class="header-h1"><h1>Users</h1></div>
+    <div class="header-h1"><h1>User Roles</h1></div>
+
+    <div class="btn-group">
+        <a href="/users" type="button"
+           class="btn btn-secondary mb-2">Back to Users</a>
+    </div>
+    <div class="mb-2 btn-group">
+        <select id="roleSelect" class="form-select">
+            <option disabled selected>Select role</option>
+            <option th:each="role : ${allRolesSet}" th:value="${role.id}" th:text="${role.name}">
+            </option>
+        </select>
+        <button class="btn btn-primary" type="button" onclick="addRole()"
+        >Add</button>
+    </div>
 
     <div class="text-center">
         <table class="table table-bordered">
             <thead>
             <tr>
-                <th class="text-center">Login</th>
-                <th class="text-center">Is blocked</th>
+                <th class="text-center">Role name</th>
                 <th class="text-center" style="width: 300px;">Action</th>
             </tr>
             </thead>
 
             <tbody>
-            <th:block th:each="user : ${userList}">
+            <th:block th:each="role : ${roleSet}">
                 <tr>
-                    <td style="display: none" class="text-center" id="uuid">[[${user.uuid}]]</td>
-                    <td class="text-center">[[${user.login}]]</td>
-                    <td class="text-center">[[${user.blocked}]]</td>
+                    <td style="display: none" class="text-center" id="roleUuid">[[${role.id}]]</td>
+                    <td class="text-center">[[${role.name}]]</td>
 
                     <td>
                         <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                             <div style="text-align: center; margin: 0 auto">
-                                <a th:href="'/users/' + ${user.uuid} + '/roles'" type="button"
-                                        class="btn btn-outline-info">Roles
-                                </a>
                                 <div class="btn-group me-2" role="group" aria-label="Second group">
-                                    <button th:onclick="@{'doBlock(' + '\'' + ${user.uuid} + '\'' + ')'}" type="button"
-                                            class="btn btn-outline-danger">Block
-                                    </button>
-                                    <button th:onclick="@{'doUnblock(' + '\'' + ${user.uuid} + '\'' + ')'}"
+                                    <button th:onclick="@{'doDelete(' + '\'' + ${role.id} + '\'' + ')'}"
                                             type="button"
-                                            class="btn btn-outline-danger">Unblock
+                                            class="btn btn-outline-danger">Delete
                                     </button>
                                 </div>
                             </div>
@@ -55,7 +61,7 @@
     </div>
 </div>
 
-<script src="/js/users.js"></script>
+<script src="/js/userRoles.js"></script>
 
 </body>
 </html>

@@ -57,8 +57,8 @@
                                    class="btn btn-outline-primary">Edit</a>
                                 <a type="button" class="btn btn-outline-primary"
                                    th:href="@{'/hardware/' + ${hardware.uuid} + '/maintenanceDates'}">Maintenance dates</a>
-                                <button onclick="doDelete()" type="button"
-                                        class="btn btn-outline-danger">Remove
+                                <button th:onclick="@{'doDelete(' + '\'' + ${hardware.uuid} + '\'' + ')'}"
+                                        type="button" class="btn btn-outline-danger">Remove
                                 </button>
                             </div>
 <!--                            If user hasn't Admin authority-->

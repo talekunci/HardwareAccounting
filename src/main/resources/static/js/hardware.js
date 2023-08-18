@@ -1,4 +1,3 @@
-const uuid = document.getElementById('uuid');
 const serial = document.getElementById('serial');
 const manufacturer = document.getElementById('manufacturer');
 const name = document.getElementById('name');
@@ -12,8 +11,8 @@ const ownerEmail = document.getElementById('ownerEmail');
 function cancelForm() {
     window.location = "/hardware";
 }
-function doDelete() {
-    fetch(('/hardware/' + uuid.innerText), {
+function doDelete(uuid) {
+    fetch((`/hardware/${uuid}`), {
         method: 'DELETE'
     })
         .then(() => {
@@ -23,6 +22,8 @@ function doDelete() {
 }
 
 function save() {
+    const uuid = document.getElementById('uuid');
+
     if (manufacturer.value === "") {
         alert("Field 'Manufacturer' must has text.");
         return;
